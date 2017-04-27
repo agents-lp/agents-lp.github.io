@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Automation Custom Widget Query Params</title>
+    <!--<script src="script.js"></script>-->
+
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        tr {
+            word-wrap: break-word;
+            background-color: #dff0d8;
+        }
+
+        tr th {
+            background-color: #f5f5f5;
+        }
+
+        tr.warning {
+            background-color: #f2dede;
+        }
+
+    </style>
+    <!-- to be used in QA env -->
+    <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div id="result_div" class="result_div">
+        <table id="table">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
