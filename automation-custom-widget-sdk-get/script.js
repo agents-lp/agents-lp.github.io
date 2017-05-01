@@ -1,10 +1,10 @@
 (function(){
 
     var dataPaths = [
-        "chattingAgentInfo.agentName",
-        "chattingAgentInfo.agentId",
-        "chattingAgentInfo.agentGroupName",
-        "chattingAgentInfo.agentNickname",
+        //"chattingAgentInfo.agentName",    TODO: these for should be given - under investigation
+        //"chattingAgentInfo.agentId",
+        //"chattingAgentInfo.agentGroupName",
+        //"chattingAgentInfo.agentNickname",
         "agentInfo.accountId",
         "agentInfo.agentName",
         "agentInfo.agentId",
