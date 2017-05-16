@@ -59,7 +59,7 @@
 
     window.onload = function() {
         var resultDiv = document.getElementById('result_div'),
-            tableEl = document.getElementById('.table'),
+            tableEl = document.getElementById('responseData'),
             result = 'OK';
 
         resultDiv.setAttribute('data-attr',result);
