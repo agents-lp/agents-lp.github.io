@@ -57,7 +57,7 @@
         "SDE.error"
     ];
 
-    window.onload = function() {
+    function refreshData() {
         var resultDiv = document.getElementById('result_div'),
             tableEl = document.getElementById('responseData'),
             result = 'OK';
@@ -90,6 +90,12 @@
                 }
             );
         });
+    }
+
+    window.onload = function() {
+        refreshData();
     };
+
+
 
 })();
