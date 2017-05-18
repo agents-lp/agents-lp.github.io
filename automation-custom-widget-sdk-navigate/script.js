@@ -64,8 +64,6 @@
 
         resultDiv.setAttribute('data-attr',result);
 
-        lpTag.agentSDK.init({});
-
         dataPaths.forEach(function(path){
             lpTag.agentSDK.get(path,
                 function(data){
@@ -93,6 +91,8 @@
     };
 
     window.onload = function() {
+        lpTag.agentSDK.init({});
+
         window.refreshData();
     };
 })();
