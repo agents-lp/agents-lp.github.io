@@ -81,15 +81,17 @@
                     }
                 },
                 function(err){
-                    var rowNode = document.createElement('tr');
-                    rowNode.innerHTML = "<td>" + path + "</td><td>" + err + "</td>";
+                    if(err) {
+                        var rowNode = document.createElement('tr');
+                        rowNode.innerHTML = "<td>" + path + "</td><td>" + err + "</td>";
 
-                    tableEl.appendChild(rowNode);
+                        tableEl.appendChild(rowNode);
 
-                    var errString = "[Error: " + path + "]";
-                    result === 'OK' ? (result = errString) : (result += (", " + errString));
-                    rowNode.className += ' warning';
-                    resultDiv.setAttribute('data-attr',result);
+                        var errString = "[Error: " + path + "]";
+                        result === 'OK' ? (result = errString) : (result += (", " + errString));
+                        rowNode.className += ' warning';
+                        resultDiv.setAttribute('data-attr',result);
+                    }
                 }
             );
         });
