@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Title</title>
+  <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    var card = {
+      "id": "04e7cd9a-40e7-440e-884a-82ca6af574e9",
+      "type": "vertical",
+      "elements": [{
+        "type": "image",
+        "url": "http://cdn.bgr.com/2016/08/iphone-8-concept.jpg",
+        "tooltip": "image tooltip",
+        "action": {
+          "type": "navigate",
+          "id": "98446950-2f54-4594-b89b-1d60a9fdda49",
+          "name": "Navigate to store via image",
+          "lo": 23423423,
+          "la": 2423423423
+        }
+      }, {
+        "type": "text",
+        "text": "IPhone 8",
+        "tooltip": "brand new iphone 8",
+        "style": {
+          "bold": true,
+          "size": 'large'
+        }
+      }, {
+        "type": "text",
+        "text": "Now on sale!"
+      }, {
+        "type": "text",
+        "text": "$155.99",
+        "tooltip": "155.99"
+      }, {
+        "type": "button",
+        "title": "Add to cart",
+        "action": {
+          "type": "link",
+          "id": "febf3237-f7d9-44bc-a17f-fc8abdfb0f25",
+          "name": "add to cart",
+          "uri": "http://www.google.com",
+          "ios": {
+            "uri": "specific uri for iOS"
+          },
+          "android": {
+            "uri": "specific uri for Android"
+          },
+          "web": {
+            "uri": "specific uri for Web"
+          }
+        }
+      }, {
+        "type": "button",
+        "title": "Navigate to store",
+        "tooltip": "store is the thing",
+        "action": {
+          "type": "navigate",
+          "id": "98446950-2f54-4594-b89b-1d60a9fdda49",
+          "name": "Navigate to store",
+          "lo": 23423423,
+          "la": 2423423423
+        }
+      }, {
+        "type": "button",
+        "title": "More details",
+        "action": {
+          "type": "link",
+          "id": "15ffab70-de0e-42df-9576-290c2249aa24",
+          "uri": "http://www.google.com",
+          "name": "open browser"
+        }
+      }]
+    }
+
+    function sendSC() {
+      var textarea = document.getElementById('jsonInput');
+
+      var cmdName = lpTag.agentSDK.cmdNames.writeSC;
+      // var cmdName = lpTag.agentSDK.cmdNames.write;
+      var data = { json: textarea.value };
+
+      lpTag.agentSDK.command(cmdName, data, function(err) {
+        var resSpan = document.getElementById('resultText');
+        resSpan.textContent = err ? 'error: ' + err: 'done';
+      });
+    }
+
+    function addCard() {      
+      var textarea = document.getElementById('jsonInput');
+      textarea.value = JSON.stringify(card);
+    }
+
+    function sendCard() {      
+      var textarea = document.getElementById('jsonInput');
+      textarea.value = JSON.stringify(card);
+    }
+
+    window.onload = function() {
+      lpTag.agentSDK.init({});
+    }
+
+  </script>
+</head>
+
+<body>
+  <h2>Add Sctructured Content json here</h2>
+  <textarea id="jsonInput" style="width:95%;height:300px;"></textarea>
+  <button onclick="sendSC()">Send</button>
+  <button onclick="addCard()">Add Card</button>
+  <span id="resultText"></span>
+</body>
+
+</html>
