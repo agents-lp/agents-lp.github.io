@@ -126,14 +126,37 @@
           }
         }
       ]
-    }
+    };
+
+    var metadata = [
+        {
+            "type": "ExternalId",
+            "id": "123456789"
+        },
+        {
+            "type": "BotResponse",
+            "intents": [
+                {
+                    "id": "123456789",
+                    "confidence": 0
+                }
+            ]
+        },
+        {
+            "type": "ActionReason"
+        }
+    ];
 
     function sendSC() {
-      var textarea = document.getElementById('jsonInput');
+      var jsonTextarea = document.getElementById('jsonInput');
+      var metadataTextarea = document.getElementById('metadataInput');
 
       var cmdName = lpTag.agentSDK.cmdNames.writeSC;
       // var cmdName = lpTag.agentSDK.cmdNames.write;
-      var data = { json: textarea.value };
+      var data = {
+        json: jsonTextarea.value,
+        metadata: metadataTextarea.value
+      };
 
       lpTag.agentSDK.command(cmdName, data, function(err) {
         var resSpan = document.getElementById('resultText');
@@ -146,9 +169,9 @@
       textarea.value = JSON.stringify(card);
     }
 
-    function sendCard() {      
-      var textarea = document.getElementById('jsonInput');
-      textarea.value = JSON.stringify(card);
+    function addMetadata() {      
+      var textarea = document.getElementById('metadataInput');
+      textarea.value = JSON.stringify(metadata);
     }
 
     window.onload = function() {
@@ -160,9 +183,17 @@
 
 <body>
   <h2>Add Structured Content json here</h2>
-  <textarea id="jsonInput" style="width:95%;height:300px;"></textarea>
+  <label>
+      json
+      <textarea id="jsonInput" style="width:95%;height:300px;"></textarea>
+  </label>
+  <label>
+      metadata
+      <textarea id="metadataInput" style="width:95%;height:100px;"></textarea>
+  </label>
   <button onclick="sendSC()">Send</button>
   <button onclick="addCard()">Add Card</button>
+  <button onclick="addMetadata()">Add Metadata</button>
   <span id="resultText"></span>
 </body>
 
