@@ -1,199 +1,40 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Title</title>
-  <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
-  <!--<script src="js/script.js"></script>-->
-  <script>
-    var card = {
-      "type": "vertical",
-      "elements": [
-        {
-          "type": "image",
-          "url": "http://cdn.bgr.com/2016/08/iphone-8-concept.jpg",
-          "tooltip": "image tooltip",
-          "click": {
-            "actions": [
-              {
-                "type": "navigate",
-                "id": "98446950-2f54-4594-b89b-1d60a9fdda49",
-                "name": "Navigate to store via image",
-                "lo": 23423423,
-                "la": 2423423423
-              }
-            ]
-          }
-        },
-        {
-          "type": "text",
-          "text": "IPhone 8",
-          "tooltip": "brand new iphone 8",
-          "style": {
-            "bold": true,
-            "size": "large"
-          }
-        },
-        {
-          "type": "text",
-          "text": "Now on sale!"
-        },
-        {
-          "type": "text",
-          "text": "$155.99",
-          "tooltip": "155.99"
-        },
-        {
-          "type": "button",
-          "title": "Add to cart",
-          "click": {
-            "actions": [
-              {
-                "type": "link",
-                "id": "febf3237-f7d9-44bc-a17f-fc8abdfb0f25",
-                "name": "add to cart",
-                "uri": "http://www.google.com"
-              }
-            ]
-          }
-        },
-        {
-          "type": "horizontal",
-          
-          "elements": [
-            {
-              "type": "button",
-              "title": "Buy",
-              "tooltip": "store is the thing",
-              "click": {
-                "actions": [
-                  {
-                    "type": "navigate",
-                    "id": "98446950-2f54-4594-b89b-1d60a9fdda49",
-                    "name": "Navigate to store",
-                    "lo": 23423423,
-                    "la": 2423423423
-                  }
-                ]
-              }
-            },
-            {
-              "type": "button",
-              "title": "Find",
-              "tooltip": "store is the thing",
-              "click": {
-                "actions": [
-                  {
-                    "type": "navigate",
-                    "id": "98446950-2f54-4594-b89b-1d60a9fdda49",
-                    "name": "Navigate to store",
-                    "lo": 23423423,
-                    "la": 2423423423
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "type": "button",
-          "title": "Navigate to store",
-          "tooltip": "store is the thing",
-          "click": {
-            "actions": [
-              {
-                "type": "navigate",
-                "id": "98446950-2f54-4594-b89b-1d60a9fdda49",
-                "name": "Navigate to store",
-                "lo": 23423423,
-                "la": 2423423423
-              }
-            ]
-          }
-        },
-        {
-          "type": "button",
-          "title": "More details",
-          "click": {
-            "actions": [
-              {
-                "type": "link",
-                "id": "15ffab70-de0e-42df-9576-290c2249aa24",
-                "uri": "http://www.google.com",
-                "name": "open browser"
-              }
-            ]
-          }
-        }
-      ]
-    };
-
-    var metadata = [
-        {
-            "type": "ExternalId",
-            "id": "123456789"
-        },
-        {
-            "type": "BotResponse",
-            "intents": [
-                {
-                    "id": "123456789",
-                    "confidence": 0
-                }
-            ]
-        },
-        {
-            "type": "ActionReason"
-        }
-    ];
-
-    function sendSC() {
-      var jsonTextarea = document.getElementById('jsonInput');
-      var metadataTextarea = document.getElementById('metadataInput');
-
-      var cmdName = lpTag.agentSDK.cmdNames.writeSC;
-      // var cmdName = lpTag.agentSDK.cmdNames.write;
-      var data = {
-        json: jsonTextarea.value,
-        metadata: metadataTextarea.value
-      };
-
-      lpTag.agentSDK.command(cmdName, data, function(err) {
-        var resSpan = document.getElementById('resultText');
-        resSpan.textContent = err ? 'error: ' + err: 'done';
-      });
-    }
-
-    function addCard() {      
-      var textarea = document.getElementById('jsonInput');
-      textarea.value = JSON.stringify(card);
-    }
-
-    function addMetadata() {      
-      var textarea = document.getElementById('metadataInput');
-      textarea.value = JSON.stringify(metadata);
-    }
-
-    window.onload = function() {
-      lpTag.agentSDK.init({});
-    }
-
-  </script>
+    <title>structured content widget</title>
+    <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
+    <link href="styles/styles.css" rel="stylesheet">
 </head>
 
 <body>
-  <label>
-      JSON
-      <textarea id="jsonInput" style="width:95%;height:300px;"></textarea>
-  </label>
-  <label>
-      Metadata
-      <textarea id="metadataInput" style="width:95%;height:100px;"></textarea>
-  </label>
-  <button onclick="sendSC()">Send</button>
-  <button onclick="addCard()">Add Card</button>
-  <button onclick="addMetadata()">Add Metadata</button>
-  <span id="resultText"></span>
+
+<h1>structured content</h1>
+
+<label for="jsonInput">
+    <span>json</span>
+    <button id="addCardBtn">add sample card</button>
+</label>
+<textarea id="jsonInput" placeholder="enter the structured content json object here"></textarea>
+<label for="metadataInput">
+    <span>metadata</span>
+    <button id="addMetadataBtn">add sample data</button>
+</label>
+<textarea id="metadataInput" placeholder="enter the structured content metadata array here"></textarea>
+
+<label for="outputLog">
+    <span>response</span>
+    <button id="clearLogBtn">clear</button>
+</label>
+<textarea id="outputLog" readonly></textarea>
+
+<button id="sendBtn">send</button>
+
+
+<script src="lib/data.js"></script>
+<script src="lib/util.js"></script>
+<script src="lib/commands.js"></script>
+<script src="app.js"></script>
+
 </body>
 
 </html>
