@@ -1,5 +1,6 @@
 (function (w, d, ns) {
 
+    var html = d.getElementsByTagName('html')[0];
     var outputLog = d.getElementById('outputLog');
     var jsonInput = d.getElementById('jsonInput');
     var metadataInput = d.getElementById('metadataInput');
@@ -31,12 +32,24 @@
         outputLog.value = '';
     }
 
+    function increaseFontSize() {
+        var fontSize = ns.util.getFontSize(html);
+        ns.util.setFontSize(html, fontSize + 1);
+    }
+
+    function decreaseFontSize() {
+        var fontSize = ns.util.getFontSize(html);
+        ns.util.setFontSize(html, fontSize - 1);
+    }
+
 
     ns.commands = {
         addCard: addCard,
         addMetadata: addMetadata,
         sendSC: sendSC,
-        clearLog: clearLog
+        clearLog: clearLog,
+        increaseFontSize: increaseFontSize,
+        decreaseFontSize: decreaseFontSize
     };
 
 })(window, document, window.structuredContentWidget = window.structuredContentWidget || {});

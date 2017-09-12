@@ -4,6 +4,8 @@
     var addCardBtn = d.getElementById('addCardBtn');
     var addMetadataBtn = d.getElementById('addMetadataBtn');
     var clearLogBtn = d.getElementById('clearLogBtn');
+    var increaseFontSizeBtn = d.getElementById('increaseFontSizeBtn');
+    var decreaseFontSizeBtn = d.getElementById('decreaseFontSizeBtn');
 
     function bindCommand(el, cmd) {
         el.addEventListener('click', ns.commands[cmd]);
@@ -19,6 +21,8 @@
         bindCommand(addCardBtn, 'addCard');
         bindCommand(addMetadataBtn, 'addMetadata');
         bindCommand(clearLogBtn, 'clearLog');
+        bindCommand(increaseFontSizeBtn, 'increaseFontSize');
+        bindCommand(decreaseFontSizeBtn, 'decreaseFontSize');
 
         initSdk();
     }

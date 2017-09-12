@@ -92,15 +92,21 @@ button:hover {
 /* custom */
 
 #jsonInput {
-    height: 300px;
+    height: 21rem;
 }
 
 #metadataInput {
-    height: 100px;
+    height: 7rem;
 }
 
 #sendBtn {
     width: 100%;
     margin: 2em 0;
     padding: 1em;
+}
+
+#fontResize {
+    position: absolute;
+    top: 0;
+    right: 0;
 }
