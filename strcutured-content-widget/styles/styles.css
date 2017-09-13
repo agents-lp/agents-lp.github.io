@@ -100,7 +100,7 @@ button {
 }
 button:hover {
     color: dodgerblue;
-    background-color: #fff;
+    background-color: #d9d9d9;
 }
 
 
@@ -127,10 +127,18 @@ button:hover {
 
 #fontResize {
     position: absolute;
-    top: .2em;
-    right: .2em;
+    z-index: 9;
+    top: 4px;
+    right: 4px;
 }
 
 #fontResize button {
+    float: right;
+    width: 24px;
+    height: 24px;
+    line-height: 0;
+    margin: 4px;
+    padding: .3em;
+    font-size: 14px;
     font-weight: bold;
 }
