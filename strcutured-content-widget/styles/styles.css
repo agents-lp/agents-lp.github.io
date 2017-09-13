@@ -33,10 +33,6 @@ textarea {
     box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-}
-
 h1, h2, h3, h4, h5, h6 {
     position: relative;
     margin: 1em 0 0;
@@ -74,7 +70,7 @@ textarea {
     padding: 1em;
     border-color: #e2e2e2;
     font-family: consolas, "courier new", monospace;
-    resize: vertical;
+    resize: none;
 }
 textarea:read-only {
     background-color: #f6f6f6;
