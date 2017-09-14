@@ -126,18 +126,6 @@
         {
             "type": "ExternalId",
             "id": "123456789"
-        },
-        {
-            "type": "BotResponse",
-            "intents": [
-                {
-                    "id": "123456789",
-                    "confidence": 0
-                }
-            ]
-        },
-        {
-            "type": "ActionReason"
         }
     ];
 
