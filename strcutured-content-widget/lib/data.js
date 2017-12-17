@@ -5,7 +5,7 @@
         "elements": [
             {
                 "type": "image",
-                "url": "http://cdn.bgr.com/2016/08/iphone-8-concept.jpg",
+                "url": "https://cdn.bgr.com/2016/08/iphone-8-concept.jpg",
                 "tooltip": "image tooltip",
                 "click": {
                     "actions": [
