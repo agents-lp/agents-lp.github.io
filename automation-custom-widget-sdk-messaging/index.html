@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Automation Custom Widget SDK - get</title>
+    <style>
+        body {
+            font-family: "Myriad pro", "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif;
+            font-size:14px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        tr > td:last-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        tr {
+            word-wrap: break-word;
+            background-color: #dff0d8;
+        }
+
+        tr th {
+            background-color: #f5f5f5;
+        }
+
+        tr.warning, tr.additionalData {
+            background-color: #f2dede;
+        }
+
+        tr.missingOK {
+            background-color: #e6f0b0;
+        }
+
+        div.header {
+            background-color:#eee;
+            text-align: center;
+            padding: 10px;
+        }
+        div#result_text {
+            color: green;
+        }
+        div#result_text.error {
+            color: brown;
+        }
+    </style>
+    <!-- to be used in QA env -->
+    <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div id='engagement_type' class="header">Engagement type: </div>
+    <div id='result_text' class="header">Result: </div>
+    <div id="result_div" class="result_div">
+        <table id="table">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
