@@ -1,7 +1,21 @@
+/**
+ * This is an SDK written for testing the campignInfo and engagementInfo fields in different scenarios.
+ * Flow:
+ * 1. get the conversation type based on the chatInfo.isMessaging field- 
+ *  --if true: this is a messaging conversation
+ *     1. gets the visitor's name from the SDK by visitorInfo.visitorName
+ *     2. based on the name- decides on the correct group of data paths that should be retrieved
+ *     3. calls getDataPaths with the matching dataPaths group
+ *  --if false: this is a chat conversation and calls getDataPaths of chat
+ * 2. the paths are retrieved and the result is updated accordingly
+ */
+
 (function () {
 
     // contains the data types that can be tested (i.e. campaign without line of business) and their data paths.
-    // the paths are represented as objects- name: the path name in the SDK, shouldBeAvailable: if false- the missing value will not affect the data-attr.
+    // the paths are represented as objects- 
+        // name: the path name in the SDK, 
+        // shouldBeAvailable: if false- expects a missing value, if true: expects some value. deviation from that will change the outcome from "OK" to invalid
     var dataPaths = {
         // all the fields that should be available in messaging
         messagingFullInfo: [
@@ -198,41 +212,6 @@
             // { name: "engagementInfo.engagementSkill", shouldBeAvailable: false }, // TODO-will be included after skill routing for messaging feature
             // { name: "engagementInfo.skill", shouldBeAvailable: false }, // TODO- should be deprecated
         ],
-        messagingOld: [
-            "chattingAgentInfo.agentName",
-            "chattingAgentInfo.agentId",
-            "chattingAgentInfo.agentGroupName",
-            "chattingAgentInfo.agentNickname",
-            "agentInfo.accountId",
-            "agentInfo.agentName",
-            "agentInfo.agentId",
-            "agentInfo.agentNickname",
-            "agentInfo.agentEmail",
-            "agentInfo.maxChats",
-            "chatTranscript.lines",
-            "visitorInfo.visitorId",
-            "visitorInfo.visitorName",
-            "visitorInfo.device",
-            "visitorInfo.browser",
-            "visitorInfo.operatingSystem",
-            // "visitorInfo.IpAddress", //missing
-            // "visitorInfo.visitStartTime", //missing
-            "visitorInfo.chattingVisitorState",
-            "campaignInfo.campaignName",
-            "campaignInfo.campaignId",
-            "campaignInfo.campaignDescription",
-            "campaignInfo.targetAudience",
-            "campaignInfo.goalName",
-            "campaignInfo.goalId",
-            "campaignInfo.goalDescription",
-            "engagementInfo.VisitorBehavior",
-            // "engagementInfo.skill", // TODO- should be deprecated
-            "engagementInfo.engagementType",
-            "engagementInfo.engagementId",
-            "engagementInfo.engagementName",
-            "engagementInfo.agentNote",
-            // "engagementInfo.engagementSkill", // TODO-will be included after skill routing for messaging feature
-        ],
         chat: [
             { name: "chattingAgentInfo.agentName", shouldBeAvailable: true },
             { name: "chattingAgentInfo.agentId", shouldBeAvailable: true },
@@ -289,63 +268,6 @@
             // { name: "SDE.shoppingCart", shouldBeAvailable: true },
             // { name: "SDE.serviceActivity", shouldBeAvailable: true },
             // { name: "SDE.error", shouldBeAvailable: true }
-        ],
-        chatOld: [
-            //"chattingAgentInfo.agentName",    TODO: these for should be given - under investigation
-            //"chattingAgentInfo.agentId",
-            //"chattingAgentInfo.agentGroupName",
-            //"chattingAgentInfo.agentNickname",
-            "agentInfo.accountId",
-            "agentInfo.agentName",
-            "agentInfo.agentId",
-            "agentInfo.agentNickname",
-            "agentInfo.agentEmail",
-            "agentInfo.maxChats",
-            "chatTranscript.lines",
-            // "surveyQuestions.preChat.email.value",
-            // "surveyQuestions.preChat.email.displayName",
-            // "surveyQuestions.preChat.phone.value",
-            // "surveyQuestions.preChat.phone.displayName",
-            // "surveyQuestions.preChat.name.value",
-            // "surveyQuestions.preChat.name.displayName",
-            // "surveyQuestions.preChat.customizedQuestions",
-            // "customVariables",
-            //"surveyQuestions.postChat",
-            //"surveyQuestions.agentSurvey",
-            "visitorInfo.visitorId",
-            "visitorInfo.visitorName",
-            "visitorInfo.device",
-            "visitorInfo.browser",
-            "visitorInfo.operatingSystem",
-            "visitorInfo.IpAddress",
-            "visitorInfo.visitStartTime",
-            "visitorInfo.chattingVisitorState",
-            "campaignInfo.campaignName",
-            "campaignInfo.campaignId",
-            "campaignInfo.campaignDescription",
-            "campaignInfo.targetAudience",
-            "campaignInfo.goalName",
-            "campaignInfo.goalId",
-            "campaignInfo.goalDescription",
-            "campaignInfo.lobName",
-            "campaignInfo.lobId",
-            "campaignInfo.lobDescription",
-            "engagementInfo.VisitorBehavior",
-            "engagementInfo.skill",
-            "engagementInfo.engagementType",
-            "engagementInfo.engagementId",
-            "engagementInfo.engagementName",
-            "engagementInfo.agentNote",
-            "engagementInfo.engagementSkill",
-            "SDE.customerDetails",
-            "SDE.personalInfo",
-            "SDE.marketingSource",
-            "SDE.leadGeneration",
-            "SDE.transaction",
-            "SDE.viewedProducts",
-            "SDE.shoppingCart",
-            "SDE.serviceActivity",
-            "SDE.error"
         ]
     };
 
@@ -373,9 +295,11 @@
             lpTag.agentSDK.get("chatInfo.isMessaging",
                 function (data) {
                     if (data) {
+                        // this is a messaging conversation
                         getMessagingPathTypeAndGetPaths();
                     }
                     else {
+                        // this is a chat conversation
                         engagementDiv.innerHTML = 'Engagement type: livechat';
                         getDataPaths(dataPaths.chat);
                     }
@@ -387,29 +311,34 @@
             );
         }
 
-        // gets the correct type according to the visitor name and then calls getDataPaths
+        /**
+         * gets the correct type according to the visitor name and then calls getDataPaths.
+         * the visitor'name is expected to be in the template "visitor_<type of test>_<timestamp>"
+         * the timestamp is needed so that the visitor's name will be unique
+         * for example "visitor_deleted_cmp_1234565434564"
+         */
         function getMessagingPathTypeAndGetPaths() {
             lpTag.agentSDK.get("visitorInfo.visitorName",
                 function (data) {
-                    var type = data && typeof data === 'string' && data.substring(8, 19);
+                    var type = (typeof data === 'string' && data) || '';
                     var dataPathType = '';
-                    switch (type) {
-                        case 'without_LOB':
+                    switch (true) {
+                        case type.indexOf('without_LOB') != -1:
                             dataPathType = 'messagingNoLOB';
-                        break;
-                        case 'deleted_cmp':
+                            break;
+                        case type.indexOf('deleted_cmp') != -1:
                             dataPathType = 'messagingDeletedCampaign';
-                        break;
-                        case 'basic_info_':
+                            break;
+                        case type.indexOf('basic_info') != -1:
                             dataPathType = 'messagingBasicInfo';
-                        break;
-                        case 'deleted_eng':
+                            break;
+                        case type.indexOf('deleted_eng') != -1:
                             dataPathType = 'messagingDeletedEngagement';
-                        break;
-                        case 'full_info__':
+                            break;
+                        case type.indexOf('full_info') != -1:
                         default:
                             dataPathType = 'messagingFullInfo';
-                        break;
+                            break;
                     }
                     engagementDiv.innerHTML = 'Engagement type: asyncMessaging, ' + dataPathType;
                     resultDiv.setAttribute('data-type', dataPathType);
@@ -422,10 +351,15 @@
             );
         }
 
-        function getDataPaths(dataPathsArray) {
-            if (!dataPathsArray) {return ;}
+        /**
+         * Goes through the object and retureves the listed data paths. 
+         * after the rerieval it lists it in the table and updates the result if the data should or shouldn't have been available
+         * @param {*} dataPathsObject 
+         */
+        function getDataPaths(dataPathsObject) {
+            if (!dataPathsObject) {return ;}
 
-            dataPathsArray.forEach(function (path) {
+            dataPathsObject.forEach(function (path) {
                 lpTag.agentSDK.get(path.name,
                     function (data) {
                         var rowNode = document.createElement('tr');
