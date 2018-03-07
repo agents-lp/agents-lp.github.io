@@ -54,7 +54,7 @@
             { name: "engagementInfo.VisitorBehavior", shouldBeAvailable: true },
             { name: "engagementInfo.engagementType", shouldBeAvailable: true }
             // { name: "engagementInfo.engagementSkill", shouldBeAvailable: true }, // TODO-will be included after skill routing for messaging feature
-            // { name: "engagementInfo.skill", shouldBeAvailable: true }, // TODO- should be deprecated
+            // { name: "engagementInfo.skill", shouldBeAvailable: true },
         ],
         // no lob
         messagingNoLOB: [
@@ -212,6 +212,55 @@
             // { name: "engagementInfo.engagementSkill", shouldBeAvailable: false }, // TODO-will be included after skill routing for messaging feature
             // { name: "engagementInfo.skill", shouldBeAvailable: false }, // TODO- should be deprecated
         ],
+        // messaging with sde support
+        messagingWithSDE: [
+            // { name: "chattingAgentInfo.agentName", shouldBeAvailable: true },
+            // { name: "chattingAgentInfo.agentId", shouldBeAvailable: true },
+            // { name: "chattingAgentInfo.agentGroupName", shouldBeAvailable: true },
+            // { name: "chattingAgentInfo.agentNickname", shouldBeAvailable: true },
+            // { name: "agentInfo.accountId", shouldBeAvailable: true },
+            // { name: "agentInfo.agentName", shouldBeAvailable: true },
+            // { name: "agentInfo.agentId", shouldBeAvailable: true },
+            // { name: "agentInfo.agentNickname", shouldBeAvailable: true },
+            // { name: "agentInfo.agentEmail", shouldBeAvailable: true },
+            // { name: "agentInfo.maxChats", shouldBeAvailable: true },
+            // { name: "chatTranscript.lines", shouldBeAvailable: true },
+            // { name: "visitorInfo.visitorId", shouldBeAvailable: true },
+            // { name: "visitorInfo.visitorName", shouldBeAvailable: true },
+            // { name: "visitorInfo.device", shouldBeAvailable: true },
+            // { name: "visitorInfo.browser", shouldBeAvailable: true },
+            // { name: "visitorInfo.operatingSystem", shouldBeAvailable: true },
+            // { name: "visitorInfo.IpAddress", shouldBeAvailable: true },
+            // { name: "visitorInfo.visitStartTime", shouldBeAvailable: true },
+            // { name: "visitorInfo.chattingVisitorState", shouldBeAvailable: true },
+            { name: "SDE.customerDetails", shouldBeAvailable: true },
+            { name: "SDE.personalInfo", shouldBeAvailable: true },
+            { name: "SDE.marketingSource", shouldBeAvailable: true },
+            { name: "SDE.leadGeneration", shouldBeAvailable: true },
+            { name: "SDE.transaction", shouldBeAvailable: true },
+            { name: "SDE.viewedProducts", shouldBeAvailable: true },
+            { name: "SDE.shoppingCart", shouldBeAvailable: true },
+            { name: "SDE.serviceActivity", shouldBeAvailable: true },
+            // { name: "SDE.seamless", shouldBeAvailable: false },
+            { name: "SDE.error", shouldBeAvailable: true },
+            // { name: "campaignInfo.campaignId", shouldBeAvailable: true },
+            // { name: "campaignInfo.campaignName", shouldBeAvailable: true },
+            // { name: "campaignInfo.campaignDescription", shouldBeAvailable: true },
+            // { name: "campaignInfo.targetAudience", shouldBeAvailable: true },
+            // { name: "campaignInfo.goalId", shouldBeAvailable: true },
+            // { name: "campaignInfo.goalName", shouldBeAvailable: true },
+            // { name: "campaignInfo.goalDescription", shouldBeAvailable: true },
+            // { name: "campaignInfo.lobId", shouldBeAvailable: true },
+            // { name: "campaignInfo.lobName", shouldBeAvailable: true },
+            // { name: "campaignInfo.lobDescription", shouldBeAvailable: true },
+            // { name: "engagementInfo.engagementId", shouldBeAvailable: true },
+            // { name: "engagementInfo.engagementName", shouldBeAvailable: true },
+            // { name: "engagementInfo.agentNote", shouldBeAvailable: true },
+            // { name: "engagementInfo.VisitorBehavior", shouldBeAvailable: true },
+            // { name: "engagementInfo.engagementType", shouldBeAvailable: true }
+            // { name: "engagementInfo.engagementSkill", shouldBeAvailable: true }, // TODO-will be included after skill routing for messaging feature
+            // { name: "engagementInfo.skill", shouldBeAvailable: true }, //
+        ],
         chat: [
             { name: "chattingAgentInfo.agentName", shouldBeAvailable: true },
             { name: "chattingAgentInfo.agentId", shouldBeAvailable: true },
@@ -334,6 +383,9 @@
                             break;
                         case type.indexOf('deleted_eng') != -1:
                             dataPathType = 'messagingDeletedEngagement';
+                            break;
+                        case type.indexOf('SDE') != -1:
+                            dataPathType = 'messagingWithSDE';
                             break;
                         case type.indexOf('full_info') != -1:
                         default:
