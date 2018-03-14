@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>LivePerson SDK client example 4</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="./script.js"></script>
+</head>
+
+<body style="word-break: break-word">
+    <div class="commandBox">
+        <table>
+            <tr>
+                <td colspan="2">SDK actions:</td>
+            </tr>
+            <tr>
+                <td><label for="sdkMain">Main:</label></td>
+                <td><select id="sdkMain" style="width:100%" onchange="getSubCategory()">
+                    <option value=""></option>
+                    <option value="chatInfo">chatInfo</option>
+                    <option value="chattingAgentInfo">chattingAgentInfo</option>
+                    <option value="agentInfo">agentInfo</option>
+                    <option value="messagingInfo">messagingInfo</option>
+                    <option value="chatTranscript">chatTranscript</option>
+                    <option value="surveyQuestions">surveyQuestions</option>
+                    <option value="visitorInfo">visitorinfo</option>
+                    <option value="campaignInfo">campaignInfo</option>
+                    <option value="engagementInfo">engagementInfo</option>
+                    <option value="visitorJourney">visitorJourney</option>
+                    <option value="SDE">SDE</option>
+                    <option value="authenticatedData">authenticatedData</option>
+                    <option value="customVariables">customVariables</option>
+                    <option value="splitSession">splitSession</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td><label for="sdkSub">Sub:</label></td>
+                <td><select id="sdkSub" style="width:100%" name="commandInput"></select></td>
+            </tr>
+            <tr>
+                <td><label for="sdkCustom">custom:</label></td>
+                <td><input id="sdkCustom" type='text' style="width:100%" name="commandInput"></td>
+            </tr>
+            <tr>
+                <td>do:</td>
+                <td><button class="getButton" onclick="get()" title="Write">Get</button>
+                <button class="bindButton" onclick="bind()" title="bind">Bind</button>
+                <button class="unbindButton" onclick="unbind()" title="bind">Unbind</button></td>
+            </tr>
+            <tr>
+                <td colspan="2"><div class='result'></div></td>
+            </tr>
+            <tr>
+                <td colspan="2"><div class='getResults'></div></td>
+            </tr>
+            <tr>
+                <td colspan="2"><div class='bindResults'></div></td>
+            </tr>
+            <tr>
+                <td colspan="2">Notify actions:
+                    <button class="notifyButton" onclick="startSendingNotification()" title="Notify">Notify</button>
+                    <button class="stopNotifyButton" onclick="stopSendingNotification()" title="stopNotify">Stop Notify</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><label for="commandInput">Write:</label>
+                        <input id='commandInput' dclass="commandInput" type="text" name="commandInput" />
+                        <button class="commandButton" onclick="writeCommand()" title="Write">Write</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="logBox">
+        <textarea disabled style="width: 100%; height: 300px;"></textarea>
+    </div>
+</body>
+
+</html>
