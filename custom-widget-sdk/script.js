@@ -114,7 +114,7 @@ function getSubCategory() {
             $sdkSub.append(getOptionsString(['', 'accountId', 'agentName', 'agentId', 'agentNickname', 'agentEmail', 'employeeId', 'maxChats']));
             break;
         case 'messagingInfo':
-            $sdkSub.append(getOptionsString(['', 'consumerProfile.backgroundImage', 'consumerProfile.description', 'firstName', 'consumerProfile.fullName', 'consumerProfile.avatarImage', 'consumerProfile.lastName', 'consumerProfile.isProfileSet', 'consumerProfile.userId']));            break;
+            $sdkSub.append(getOptionsString(['', 'consumerProfile.backgroundImage', 'consumerProfile.description', 'consumerProfile.firstName', 'consumerProfile.fullName', 'consumerProfile.avatarImage', 'consumerProfile.lastName', 'consumerProfile.isProfileSet', 'consumerProfile.userId']));            break;
         case 'chatTranscript':
             $sdkSub.append(getOptionsString(['', 'lines']));
             break;
