@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>quick replies widget</title>
+        <script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
+        <link href="styles/styles.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div id="fontResize">
+            <button id="decreaseFontSizeBtn" title="decrease font size">-</button>
+            <button id="increaseFontSizeBtn" title="increase font size">+</button>
+        </div>
+
+        <h1>quick replies</h1>
+
+        <label for="textInput">
+            <span>text</span>
+            <button id="addTextBtn">add sample text</button>
+        </label>
+        <input id="textInput" placeholder="send a text message along with the quick replies" />
+        <label for="quickRepliesInput">
+            <span>quick replies</span>
+            <button id="addQuickRepliesBtn">add sample quick replies</button>
+        </label>
+        <textarea id="quickRepliesInput" placeholder="enter a quick replies schema instance here"></textarea>
+
+        <label for="outputLog">
+            <span>response</span>
+            <button id="clearLogBtn">clear</button>
+        </label>
+        <textarea id="outputLog" readonly></textarea>
+
+        <button id="sendBtn">send</button>
+
+
+        <script src="lib/data.js"></script>
+        <script src="lib/util.js"></script>
+        <script src="lib/commands.js"></script>
+        <script src="app.js"></script>
+
+    </body>
+
+</html>

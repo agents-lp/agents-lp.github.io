@@ -1,0 +1,146 @@
+
+/* baseline */
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* base for root-relative font size */
+    font-size: 14px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 1em;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: .017em;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #777;
+    background-color: #f0f0f0;
+}
+
+html,
+body,
+button,
+input,
+textarea {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    position: relative;
+    margin: 1em 0 0;
+    font-weight: 200;
+    color: dodgerblue;
+}
+
+a {
+    color: dodgerblue;
+}
+
+label {
+    display: block;
+    margin: 1.2em 0 .4em;
+}
+label span {
+    float: left;
+    line-height: 2.4;
+    font-weight: 300;
+}
+label button {
+    float: right;
+}
+
+input,
+textarea,
+button {
+    border: 1px solid;
+    outline: 0 none;
+    font-size: 1rem;
+    color: #777;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 1em;
+    border-color: #e2e2e2;
+    font-family: consolas, "courier new", monospace;
+    resize: none;
+}
+textarea:read-only {
+    background-color: #f6f6f6;
+    cursor: not-allowed;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    color: #aaa;
+}
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 300;
+    color: #aaa;
+}
+
+button {
+    padding: .5em 1em;
+    border-color: transparent;
+    font-weight: 300;
+    background-color: #ddd;
+    cursor: pointer;
+}
+button:hover {
+    color: dodgerblue;
+    background-color: #d9d9d9;
+}
+
+
+/* custom */
+
+#textInput {
+    flex: 0 1 10%;
+}
+
+#quickRepliesInput {
+    flex: 0 1 70%;
+}
+
+#outputLog {
+    flex: 0 1 20%;
+}
+
+#sendBtn {
+    width: 100%;
+    margin: 2em 0 1em;
+    padding: 1em;
+    flex: 0 0 auto;
+}
+
+#fontResize {
+    position: absolute;
+    z-index: 9;
+    top: 4px;
+    right: 4px;
+}
+
+#fontResize button {
+    float: right;
+    width: 24px;
+    height: 24px;
+    line-height: 0;
+    margin: 4px;
+    padding: .3em;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50%;
+}
