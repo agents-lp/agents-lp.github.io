@@ -3,10 +3,105 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
     <title>LivePerson SDK client example 4</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
     <script src="./script.js"></script>
+    <style>
+        .min {
+            width: 60px;
+        }
+        .action-line {
+            background: gray;
+            color:white;
+            text-align: center;
+            font: arial;
+        }
+        button {
+            font-size: 10px;
+            outline: none;
+            padding: 5px 8px;
+            box-sizing: border-box;
+        }
+
+        input {
+            height: 10px;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 50px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 150%;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: initial;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .results {
+            width: 100%;
+            min-height: 100px;
+            font-size: 10px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button:hover {
+            font-weight: bold;
+            background: black;
+            color: white;
+        }
+
+        button:hover svg{
+            color: lightblue;
+        }
+
+        .do-buttons {
+            display: table;
+        }
+
+        .left-button {
+            border-radius: 5px 0 0 5px;
+        }
+        .middle-button {
+            border-radius: 0px;
+            -webkit-appearance: none;
+        }
+        .right-button {
+            border-radius: 0 5px 5px 0;
+        }
+
+    </style>
 </head>
 
 <body style="word-break: break-word">
@@ -16,58 +111,100 @@
                 <td colspan="2">SDK actions:</td>
             </tr>
             <tr>
-                <td><label for="sdkMain">Main:</label></td>
-                <td><select id="sdkMain" style="width:170px" onchange="getSubCategory()">
-                    <option value=""></option>
-                    <option value="chatInfo">chatInfo</option>
-                    <option value="chattingAgentInfo">chattingAgentInfo</option>
-                    <option value="agentInfo">agentInfo</option>
-                    <option value="messagingInfo">messagingInfo</option>
-                    <option value="chatTranscript">chatTranscript</option>
-                    <option value="surveyQuestions">surveyQuestions</option>
-                    <option value="visitorInfo">visitorInfo</option>
-                    <option value="campaignInfo">campaignInfo</option>
-                    <option value="engagementInfo">engagementInfo</option>
-                    <option value="visitorJourney">visitorJourney</option>
-                    <option value="SDE">SDE</option>
-                    <option value="authenticatedData">authenticatedData</option>
-                    <option value="customVariables">customVariables</option>
-                    <option value="splitSession">splitSession</option>
-                </select></td>
-            </tr>
-            <tr>
-                <td><label for="sdkSub">Sub:</label></td>
-                <td><select id="sdkSub" style="width:170px" name="commandInput"></select></td>
-            </tr>
-            <tr>
-                <td><label for="sdkCustom">custom:</label></td>
-                <td><input id="sdkCustom" type='text' style="width:100%" name="commandInput"></td>
-            </tr>
-            <tr>
-                <td>do:</td>
-                <td><button class="getButton" onclick="get()" title="Write">Get</button>
-                <button class="bindButton" onclick="bind()" title="bind">Bind</button>
-                <button class="unbindButton" onclick="unbind()" title="bind">Unbind</button></td>
-            </tr>
-            <tr>
-                <td colspan="2"><div class='result'></div></td>
-            </tr>
-            <tr>
-                <td colspan="2"><div class='getResults'></div></td>
-            </tr>
-            <tr>
-                <td colspan="2"><div class='bindResults'></div></td>
-            </tr>
-            <tr>
-                <td colspan="2">Notify actions:
-                    <button class="notifyButton" onclick="startSendingNotification()" title="Notify">Notify</button>
-                    <button class="stopNotifyButton" onclick="stopSendingNotification()" title="stopNotify">Stop Notify</button>
+                <td class="min">
+                    <label for="sdkMain">Main:</label>
+                </td>
+                <td>
+                    <select id="sdkMain" style="width:170px" onchange="getSubCategory()">
+                        <option value=""></option>
+                        <option value="chatInfo">chatInfo</option>
+                        <option value="chattingAgentInfo">chattingAgentInfo</option>
+                        <option value="agentInfo">agentInfo</option>
+                        <option value="messagingInfo">messagingInfo</option>
+                        <option value="chatTranscript">chatTranscript</option>
+                        <option value="surveyQuestions">surveyQuestions</option>
+                        <option value="visitorInfo">visitorInfo</option>
+                        <option value="campaignInfo">campaignInfo</option>
+                        <option value="engagementInfo">engagementInfo</option>
+                        <option value="visitorJourney">visitorJourney</option>
+                        <option value="SDE">SDE</option>
+                        <option value="authenticatedData">authenticatedData</option>
+                        <option value="customVariables">customVariables</option>
+                        <option value="splitSession">splitSession</option>
+                    </select>
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><label for="commandInput">Write:</label>
-                        <input id='commandInput' dclass="commandInput" type="text" name="commandInput" />
-                        <button class="commandButton" onclick="writeCommand()" title="Write">Write</button>
+                <td class="min">
+                    <label for="sdkSub">Sub:</label>
+                </td>
+                <td>
+                    <select id="sdkSub" style="width:170px" name="commandInput"></select>
+                </td>
+            </tr>
+            <tr>
+                <td class="min">
+                    <label for="sdkCustom">custom:</label>
+                </td>
+                <td>
+                    <input id="sdkCustom" type='text' style="width:100%" name="commandInput">
+                </td>
+            </tr>
+            <tr>
+                <td>do:</td>
+                <td class="do-buttons">
+                    <button class="getButton left-button" onclick="get()" title="Write">Get <i class="fas fa-arrow-down"></i></button>
+                    <button class="bindButton middle-button" onclick="bind()" title="bind">Bind <i class="fas fa-link"></i></button>
+                    <button class="unbindButton right-button" onclick="unbind()" title="bind">Unbind <i class="fas fa-unlink"></i></button>
+                </td>
+            </tr>
+            <tr>
+                <td class="action-line" colspan="2">
+                    <div class='result-line'></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="float: left;">Result</div>
+                    <div style="display: table; float: right;">
+                        <div class="tooltip">
+                            <button class="left-button" onclick="copyToClipboard()" onmouseout="onCopyMouseOut()">
+                                <span class="tooltip-text">Copy to clipboard</span>
+                                Copy
+                                <i class="fas fa-copy"></i></button>
+                            </button>
+                        </div>
+                        <button class="right-button" onclick="clearText()">clear <i class="fas fa-ban"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea class='results' oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class='bindResults'></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Notify:
+                    <div style="display: table; float:right;">
+                        <button class="notifyButton left-button" onclick="startSendingNotification()" title="Notify">Notify <i class="far fa-bell"></i></button>
+                        <button class="stopNotifyButton right-button" onclick="stopSendingNotification()" title="stopNotify">Stop Notify <i class="far fa-bell-slash"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="commandInput" class="min">Write:</label>
+                </td>
+                <td>
+                    <div style="width:100%; display: flex;">
+                        <input class="commandInput" type="text" name="commandInput" style="width: 55%; padding:5px;"/>
+                        <button class="commandButton right-button" onclick="writeCommand()" title="Write" style="min-width: 50px; width: 36%;">Write <i class="fas fa-pencil-alt"></i></button>
+                    </div>
                 </td>
             </tr>
         </table>
