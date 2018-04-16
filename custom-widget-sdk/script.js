@@ -1,11 +1,6 @@
 var SDK = lpTag.agentSDK || {};
 var myTimer;
 
-$('html, body').css({
-    overflow: 'hidden',
-    height: '100%'
-});
-
 $(function () {
     SDK.init({
         notificationCallback: getLogFunction('INFO', 'Notification received!'),
@@ -35,38 +30,39 @@ function sendNotification() {
 function writeCommand() {
     var commandVal = $(".commandInput").val();
     SDK.command('Write ChatLine', { text: commandVal }, createCallback('Write'));
+    $(".commandInput").val('');
 }
 
 function get() {
     var getKey = getKeys();
     if (getKey) {
-        $('.result').text('Getting: ' + getKey);
+        $('.result-line').text('Getting: ' + getKey);
         SDK.get(getKey, getSuccess, getLogFunction('ERROR', 'Error in get!'));
     }
     else {
-        $('.result').text('Missing values');
+        $('.result-line').text('Missing values');
     }
 }
 
 function bind() {
     var bindKey = getKeys();
     if (bindKey) {
-        $('.result').text('Binding to: ' + bindKey);
+        $('.result-line').text('Binding to: ' + bindKey);
         SDK.bind(bindKey, bindSuccess, createCallback('Bind'));
     }
     else {
-        $('.result').text('Missing values');
+        $('.result-line').text('Missing values');
     }
 }
 
 function unbind() {
     var unbindKey = getKeys();
     if (unbindKey) {
-        $('.result').text('Unbinding: ' + unbindKey);
+        $('.result-line').text('Unbinding: ' + unbindKey);
         SDK.unbind(unbindKey, bindSuccess, createCallback('Unbind'));
     }
     else {
-        $('.result').text('Missing values');
+        $('.result-line').text('Missing values');
     }
 }
 function createCallback(name) {
@@ -76,14 +72,14 @@ function createCallback(name) {
         } else {
             getLogFunction('INFO', name + ' success!')();
         }
-    }
+    };
 }
 function getSuccess(data) {
-    $(".getResults").html(JSON.stringify(data));
+    $(".results").val(JSON.stringify(data, undefined, 4));
     getLogFunction('INFO', 'Get success!')(data);
 }
 function bindSuccess(data) {
-    $(".bindResults").html(JSON.stringify(data));
+    $(".results").val(JSON.stringify(data, undefined, 4));
     getLogFunction('INFO', 'Bind success!')(data);
 }
 function logger(type, text) {
@@ -114,7 +110,7 @@ function getSubCategory() {
             $sdkSub.append(getOptionsString(['', 'accountId', 'agentName', 'agentId', 'agentNickname', 'agentEmail', 'employeeId', 'maxChats']));
             break;
         case 'messagingInfo':
-            $sdkSub.append(getOptionsString(['', 'consumerProfile.backgroundImage', 'consumerProfile.description', 'consumerProfile.firstName', 'consumerProfile.fullName', 'consumerProfile.avatarImage', 'consumerProfile.lastName', 'consumerProfile.isProfileSet', 'consumerProfile.userId']));            break;
+            $sdkSub.append(getOptionsString(['', 'consumerProfile.backgroundImage', 'consumerProfile.description', 'consumerProfile.firstName', 'consumerProfile.fullName', 'consumerProfile.avatarImage', 'consumerProfile.lastName', 'consumerProfile.isProfileSet', 'consumerProfile.userId'])); break;
         case 'chatTranscript':
             $sdkSub.append(getOptionsString(['', 'lines']));
             break;
@@ -156,4 +152,22 @@ function getSubCategory() {
         }
         return str;
     }
+
+}
+
+function copyToClipboard() {
+    var copyText = $(".results");
+    copyText.select();
+    document.execCommand("Copy");
+    var tooltip = $(".tooltip-text")[0];
+    tooltip.innerHTML = "Copied";
+}
+
+function onCopyMouseOut() {
+    var tooltip = $(".tooltip-text")[0];
+    tooltip.innerHTML = "Copy to clipboard";
+}
+
+function clearText() {
+    $(".results").val('');
 }
