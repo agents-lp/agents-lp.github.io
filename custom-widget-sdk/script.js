@@ -1,5 +1,7 @@
 var SDK = lpTag.agentSDK || {};
 var myTimer;
+var searchKey = '';
+var bindingObject = {};
 
 $(function () {
     SDK.init({
@@ -17,23 +19,31 @@ function getLogFunction(type, message) {
         logger(type, message + ' The ' + type + ' data: ' + data);
     }
 }
-function startSendingNotification() {
-    myTimer = setInterval(sendNotification, 15000);
-}
-function stopSendingNotification() {
-    clearInterval(myTimer);
+function onSendNotificationClicked() {
+    if (!myTimer) {
+        myTimer = setInterval(sendNotification, 15000);
+        $(".notify-button").html('Stop notify <i class="notify-icon far fa-bell-slash">');
+        $(".notify-button").addClass('active');
+    }
+    else {
+        $(".notify-button").html('Notify <i class="notify-icon far fa-bell">');
+        $(".notify-button").removeClass('active');
+        clearInterval(myTimer);
+        myTimer = undefined;
+    }
 }
 
 function sendNotification() {
     SDK.command('Send Notification', {/*text:commandVal*/ }, createCallback('Notify'));
+    getLogFunction('INFO', name + ' success!')();
 }
 function writeCommand() {
-    var commandVal = $(".commandInput").val();
+    var commandVal = $(".write-input").val();
     SDK.command('Write ChatLine', { text: commandVal }, createCallback('Write'));
-    $(".commandInput").val('');
+    $(".write-input").val('');
 }
 
-function get() {
+function onGetClicked() {
     var getKey = getKeys();
     if (getKey) {
         $('.result-line').text('Getting: ' + getKey);
@@ -44,22 +54,42 @@ function get() {
     }
 }
 
-function bind() {
+function onBindClicked() {
     var bindKey = getKeys();
     if (bindKey) {
-        $('.result-line').text('Binding to: ' + bindKey);
-        SDK.bind(bindKey, bindSuccess, createCallback('Bind'));
+        if (!bindingObject[bindKey]) {
+            $('.result-line').text('Binding to: ' + bindKey);
+            SDK.bind(bindKey, bindSuccess, createCallback('Bind'));
+            bindingObject[bindKey] = true;
+            $(".bind-button").html('Unbind <i class="fas fa-unlink"></i>');
+            $(".bind-button").addClass('active');
+        }
+        else {
+            $(".bind-button").html('Bind <i class="fas fa-link"></i>');
+            $(".bind-button").removeClass('active');
+            SDK.unbind(bindKey, bindSuccess, createCallback('Unbind'));
+            $('.result-line').text('Unbinding: ' + bindKey);
+            bindingObject[bindKey] = false;
+        }
+        updateBindButton();
     }
     else {
         $('.result-line').text('Missing values');
     }
 }
 
-function unbind() {
+function onUnbindClicked() {
     var unbindKey = getKeys();
     if (unbindKey) {
-        $('.result-line').text('Unbinding: ' + unbindKey);
-        SDK.unbind(unbindKey, bindSuccess, createCallback('Unbind'));
+        if (bindingObject[unbindKey]) {
+            $('.result-line').text('Unbinding: ' + unbindKey);
+            SDK.unbind(unbindKey, bindSuccess, createCallback('Unbind'));
+            bindingObject[unbindKey] = false;
+            updateBindButton();
+        }
+        else {
+            $('.result-line').text('Already Unbinded: ' + unbindKey);
+        }
     }
     else {
         $('.result-line').text('Missing values');
@@ -75,11 +105,13 @@ function createCallback(name) {
     };
 }
 function getSuccess(data) {
-    $(".results").val(JSON.stringify(data, undefined, 4));
+    $(".results-json").val(JSON.stringify(data, undefined, 4));
+    $(".results-table").html(createTableContent(data, ['Key', 'Value']));
     getLogFunction('INFO', 'Get success!')(data);
 }
 function bindSuccess(data) {
-    $(".results").val(JSON.stringify(data, undefined, 4));
+    $(".results-json").val(JSON.stringify(data, undefined, 4));
+    $(".results-table").html(createTableContent(data, ['Key', 'Value']));
     getLogFunction('INFO', 'Bind success!')(data);
 }
 function logger(type, text) {
@@ -91,8 +123,9 @@ function logger(type, text) {
 }
 
 function getKeys() {
-    var bindKey = [$("#sdkMain").val() || '', $("#sdkSub").val() || '', $("#sdkCustom").val() || ''];
-    return bindKey.filter(Boolean).join('.');
+    searchKey = [$("#sdkMain").val() || '', $("#sdkSub").val() || '', $("#sdkCustom").val() || ''];
+    searchKey = searchKey.filter(Boolean).join('.');
+    return searchKey;
 }
 
 function getSubCategory() {
@@ -110,7 +143,7 @@ function getSubCategory() {
             $sdkSub.append(getOptionsString(['', 'accountId', 'agentName', 'agentId', 'agentNickname', 'agentEmail', 'employeeId', 'maxChats']));
             break;
         case 'messagingInfo':
-            $sdkSub.append(getOptionsString(['', 'consumerProfile.backgroundImage', 'consumerProfile.description', 'consumerProfile.firstName', 'consumerProfile.fullName', 'consumerProfile.avatarImage', 'consumerProfile.lastName', 'consumerProfile.isProfileSet', 'consumerProfile.userId'])); break;
+            $sdkSub.append(getOptionsString(['', 'consumerProfile', 'consumerProfile.backgroundImage', 'consumerProfile.description', 'consumerProfile.firstName', 'consumerProfile.fullName', 'consumerProfile.avatarImage', 'consumerProfile.lastName', 'consumerProfile.isProfileSet', 'consumerProfile.userId'])); break;
         case 'chatTranscript':
             $sdkSub.append(getOptionsString(['', 'lines']));
             break;
@@ -156,7 +189,7 @@ function getSubCategory() {
 }
 
 function copyToClipboard() {
-    var copyText = $(".results");
+    var copyText = $(".results-json");
     copyText.select();
     document.execCommand("Copy");
     var tooltip = $(".tooltip-text")[0];
@@ -169,5 +202,92 @@ function onCopyMouseOut() {
 }
 
 function clearText() {
-    $(".results").val('');
+    $(".results-json").val('');
+    $(".results-table").html('');
+}
+
+function createTableContent (data, ColumnNames) {
+    var tableContent = '';
+    getHeader();
+    getBody();
+    return tableContent;
+
+    function getHeader() {
+        tableContent += '<thead>';
+        tableContent += '<tr>';
+        ColumnNames.forEach(function (key, value) {
+            tableContent += '<th>' + ColumnNames[value] + '</th>';
+        });
+        tableContent += '</tr>';
+        tableContent += '</thead>';
+    }
+
+    function getBody() {
+        tableContent += '<tbody>';
+        // complex objects
+        if ($.type(data) === "array" || $.type(data) === "object") {
+            Object.keys(data).forEach(function (key) {
+                tableContent += '<tr><td>' + key + '</td>';
+                tableContent += getCellHtml(data[key]);
+                tableContent += '</tr>';
+            });
+        }
+        // simplified objects
+        else {
+            tableContent += '<tr><td>' + searchKey + '</td>' + getCellHtml(data) + '</tr>';
+        }
+        tableContent += '</tbody>';
+    }
+
+    function getCellHtml(data) {
+        var res = '';
+        switch ($.type(data)) {
+            case 'array':
+                res += '<td class="value-array">';
+                break;
+            case 'number':
+                res += '<td class="value-number">';
+                break;
+            case 'string':
+                res += '<td class="value-string">';
+                break;
+            case 'boolean':
+                res += '<td class="value-boolean">';
+                break;
+            case 'object':
+                res += '<td class="value-object">';
+                break;
+            default: // null/undefined
+                res += '<td>';
+                break;
+        }
+        return res + JSON.stringify(data) + '</td>';
+    }
+}
+
+function switchDisplay(e, name) {
+    if (name === "JSON") {
+        $(".results-json").removeClass('hide');
+        $(".results-table").addClass('hide');
+        $(".json-button").addClass('active');
+        $(".table-button").removeClass('active');
+
+    }
+    else if (name === "Table"){
+        $(".results-json").addClass('hide').removeClass('active');
+        $(".results-table").removeClass('hide').addClass('active');
+        $(".json-button").removeClass('active');
+        $(".table-button").addClass('active');
+    }
+}
+
+function updateBindButton() {
+    if (bindingObject[getKeys()]) {
+        $(".bind-button").html('Unbind <i class="fas fa-unlink"></i>');
+        $(".bind-button").addClass('active');
+    }
+    else {
+        $(".bind-button").html('Bind <i class="fas fa-link"></i>');
+        $(".bind-button").removeClass('active');
+    }
 }
