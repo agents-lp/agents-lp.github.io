@@ -8,16 +8,21 @@
     <title>LivePerson SDK client example 4</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
+    <script src="https://cdn.awesomefunctions.com/awesome-functions.min.js"></script>
     <script src="./script.js"></script>
+
     <style>
         .min {
             width: 60px;
         }
-        .action-line {
+        .result-line {
             background: gray;
             color:white;
             text-align: center;
-            font: arial;
+            font: 13px system-ui;
+            padding: 5px;
+            box-sizing: border-box;
+            border-radius: 5px;
         }
         button {
             font-size: 10px;
@@ -28,6 +33,11 @@
 
         input {
             height: 10px;
+            /* border-radius: 5px; */
+        }
+
+        .input-left {
+            /* border-radius: 5px 0 0 5px; */
         }
 
         .tooltip {
@@ -46,7 +56,7 @@
             position: absolute;
             z-index: 1;
             bottom: 150%;
-            left: 0;
+            left: -18px;
             opacity: 0;
             transition: opacity 0.3s;
             font-weight: initial;
@@ -68,17 +78,38 @@
             opacity: 1;
         }
 
-        .results {
+        .results-container {
+            border: black 1px solid;
+            width: 100%;
+            min-height: 100px;
+            max-height: 250px;
+            overflow: scroll;
+        }
+
+        .results-json {
             width: 100%;
             min-height: 100px;
             font-size: 10px;
         }
-        textarea {
+
+        .results-container textarea {
+            width: 100%;
             resize: vertical;
+            outline: none;
+            border: none;
+        }
+        button {
+            border-radius: 5px;
         }
         button:hover {
-            font-weight: bold;
+            /* font-weight: bold; */
             background: black;
+            color: white;
+        }
+
+        button.active {
+            /* font-weight: bold; */
+            background: olivedrab;
             color: white;
         }
 
@@ -92,21 +123,81 @@
 
         .left-button {
             border-radius: 5px 0 0 5px;
+            /* border-right: none; */
         }
         .middle-button {
             border-radius: 0px;
             -webkit-appearance: none;
+            /* border-right: none; */
+            border-left: none;
         }
         .right-button {
             border-radius: 0 5px 5px 0;
+            border-left: none;
+        }
+        .results-table td {
+            /* font-size: 12px; */
+            font: 12px system-ui;
+            padding: 3px;
+        }
+        .results-table td:first-child {
+            width: 40%;
+        }
+
+        .results-table tHead {
+            background: ghostwhite;
+        }
+
+        .top-button {
+            width: 70px;
+            border-radius: 5px 5px 0 0;
+            border: 1px solid black;
+            border-bottom-color: white;
+        }
+
+        .display-buttons {
+            float: left;
+            top: 9px;
+            position: relative;
+        }
+
+        .display-buttons button.active {
+            background: rgb(89, 155, 44);
+            font-weight: bold;
+            border-bottom-color: rgb(89, 155, 44);
+        }
+        .display-buttons button:hover {
+            background: rgb(238, 255, 227);
+            border-bottom-color: rgb(238, 255, 227);
+            color: black;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .value-array {
+            color: sienna;
+        }
+        .value-object {
+            color: darkcyan;
+        }
+        .value-number {
+            color: blue;
+        }
+        .value-string {
+            color: green;
+        }
+        .value-boolean {
+            color: purple;
         }
 
     </style>
 </head>
 
 <body style="word-break: break-word">
-    <div class="commandBox">
-        <table>
+    <div>
+        <table style="width: 100%;">
             <tr>
                 <td colspan="2">SDK actions:</td>
             </tr>
@@ -115,7 +206,7 @@
                     <label for="sdkMain">Main:</label>
                 </td>
                 <td>
-                    <select id="sdkMain" style="width:170px" onchange="getSubCategory()">
+                    <select id="sdkMain" style="width:100%;" onchange="getSubCategory(); updateBindButton();">
                         <option value=""></option>
                         <option value="chatInfo">chatInfo</option>
                         <option value="chattingAgentInfo">chattingAgentInfo</option>
@@ -139,7 +230,7 @@
                     <label for="sdkSub">Sub:</label>
                 </td>
                 <td>
-                    <select id="sdkSub" style="width:170px" name="commandInput"></select>
+                    <select id="sdkSub" style="width:100%;" onchange="updateBindButton();"></select>
                 </td>
             </tr>
             <tr>
@@ -147,70 +238,68 @@
                     <label for="sdkCustom">custom:</label>
                 </td>
                 <td>
-                    <input id="sdkCustom" type='text' style="width:100%" name="commandInput">
+                    <input id="sdkCustom" type='text' style="width:100%" placeholder="Enter a custom path here">
                 </td>
             </tr>
             <tr>
                 <td>do:</td>
-                <td class="do-buttons">
-                    <button class="getButton left-button" onclick="get()" title="Write">Get <i class="fas fa-arrow-down"></i></button>
-                    <button class="bindButton middle-button" onclick="bind()" title="bind">Bind <i class="fas fa-link"></i></button>
-                    <button class="unbindButton right-button" onclick="unbind()" title="bind">Unbind <i class="fas fa-unlink"></i></button>
+                <td class="do-buttons" style="width: 100%;">
+                    <button style="width: 50%;" class="get-button left-button" onclick="onGetClicked()" title="Write">Get <i class="fas fa-arrow-down"></i></button>
+                    <button style="width: 50%;" class="bind-button right-button" onclick="onBindClicked()" title="bind">Bind <i class="fas fa-link"></i></button>
                 </td>
             </tr>
             <tr>
-                <td class="action-line" colspan="2">
+                <td colspan="2">
                     <div class='result-line'></div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <div style="float: left;">Result</div>
+                    <div class="display-buttons" >
+                        <button class="top-button json-button active" onclick="switchDisplay(event, 'JSON')">JSON <i class="fa fa-code"></i></button>
+                        <button class="top-button table-button" onclick="switchDisplay(event, 'Table')">Table <i class="fa fa-table"></i></button>
+                    </div>
                     <div style="display: table; float: right;">
                         <div class="tooltip">
-                            <button class="left-button" onclick="copyToClipboard()" onmouseout="onCopyMouseOut()">
+                            <button class="left-button copy-button" onclick="copyToClipboard()" onmouseout="onCopyMouseOut()">
                                 <span class="tooltip-text">Copy to clipboard</span>
-                                Copy
-                                <i class="fas fa-copy"></i></button>
+                                <i class="fas fa-copy"></i>
                             </button>
                         </div>
-                        <button class="right-button" onclick="clearText()">clear <i class="fas fa-ban"></i></button>
+                            <button class="right-button" onclick="clearText()">
+                                <i class="fa fa-trash"></i>
+                            </button>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <textarea class='results' oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class='bindResults'></div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">Notify:
-                    <div style="display: table; float:right;">
-                        <button class="notifyButton left-button" onclick="startSendingNotification()" title="Notify">Notify <i class="far fa-bell"></i></button>
-                        <button class="stopNotifyButton right-button" onclick="stopSendingNotification()" title="stopNotify">Stop Notify <i class="far fa-bell-slash"></i></button>
+                    <div class="results-container">
+                        <textarea class='results-json' placeHolder="Use 'Get' or 'Bind' to display result" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                        <table class='results-table hide'></table>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>
-                    <label for="commandInput" class="min">Write:</label>
+                <td colspan="2">
+                    <div style="display: table; width: 100%;">
+                        <button style="width: 100%;" class="notify-button" onclick="onSendNotificationClicked()" title="Notify">Notify <i class="notify-icon far fa-bell"></i></button>
+                        <!-- <button style="width: 50%;" class="stop-notify-button right-button" onclick="stopSendingNotification()" title="stopNotify">Stop Notify <i class="far fa-bell-slash"></i></button> -->
+                    </div>
                 </td>
-                <td>
+            </tr>
+            <tr>
+                <td colspan="2">
                     <div style="width:100%; display: flex;">
-                        <input class="commandInput" type="text" name="commandInput" style="width: 55%; padding:5px;"/>
-                        <button class="commandButton right-button" onclick="writeCommand()" title="Write" style="min-width: 50px; width: 36%;">Write <i class="fas fa-pencil-alt"></i></button>
+                        <input class="write-input input-left" type="text" style="width: 75%; padding:5px;"/>
+                        <button class="right-button" onclick="writeCommand()" title="Write" style="min-width: 50px; width: 34%;">Write <i class="fas fa-pencil-alt"></i></button>
                     </div>
                 </td>
             </tr>
         </table>
     </div>
     <div class="logBox">
-        <textarea disabled style="width: 100%; height: 300px;"></textarea>
+        <textarea disabled style="width: 100%; height: 200px;"></textarea>
     </div>
 </body>
 
