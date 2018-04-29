@@ -2,7 +2,7 @@
 
     var quickRepliesSchemaInstance = {
         "type": "quickReplies",
-        "itemsPerRow": 10,
+        "itemsPerRow": 5,
         "replies": [
             {
                 "type": "button",
@@ -255,7 +255,7 @@
     };
 
     ns.data = {
-        text: 'hiya, can i help with stuff?',
+        text: 'hiya, which cookie do you like best?',
         quickReplies: quickRepliesSchemaInstance,
     };
 
