@@ -10,7 +10,10 @@
         var cmdName = lpTag.agentSDK.cmdNames.write;
         var data = {
             text: textInput.value,
-            quickReplies: quickRepliesInput.value
+            quickReplies: quickRepliesInput.value,
+            metadata: {
+                title: 'quick replies example',
+            }
         };
 
         clearLog();
