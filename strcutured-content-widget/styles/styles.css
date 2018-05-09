@@ -47,6 +47,7 @@ a {
 label {
     display: block;
     margin: 1.2em 0 .4em;
+    position: relative;
 }
 label span {
     float: left;
@@ -138,4 +139,27 @@ button:hover {
     font-size: 14px;
     font-weight: bold;
     border-radius: 50%;
+}
+
+#cardOptions {
+    position: absolute;
+    right: 0px;
+    background: white;
+    top: 33px;
+    /* width: 118px;    */
+    border: solid 2px #DDD;
+    z-index: 9;
+    outline: none;
+}
+
+#cardOptions > div {
+    padding: 2px 4px 2px 4px;
+}
+
+#cardOptions > div:nth-child(2n+2) {
+    background: #f0f0f0;
+}
+
+#cardOptions > div:hover {
+    background: #DDD;
 }

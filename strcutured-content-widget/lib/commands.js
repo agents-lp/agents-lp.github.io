@@ -3,6 +3,8 @@
     var html = d.getElementsByTagName('html')[0];
     var outputLog = d.getElementById('outputLog');
     var jsonInput = d.getElementById('jsonInput');
+    var addCardBtn = d.getElementById('addCardBtn');
+    var cardOptions = d.getElementById('cardOptions');
     var metadataInput = d.getElementById('metadataInput');
 
     function sendSC() {
@@ -20,8 +22,14 @@
         });
     }
 
-    function addCard() {
-        jsonInput.value = ns.util.prettyPrint(ns.data.card);
+    function showCardList() {
+        cardOptions.style.visibility = 'visible';
+        cardOptions.focus();
+    }
+
+    function addCard(e) {
+        const cardKey = e.target.getAttribute('data-attr-name');
+        jsonInput.value = ns.util.prettyPrint(ns.data.cards[cardKey].content);
     }
 
     function addMetadata() {
@@ -35,16 +43,23 @@
     function increaseFontSize() {
         var fontSize = ns.util.getFontSize(html);
         ns.util.setFontSize(html, fontSize + 1);
+        adjustToFontSize(fontSize + 1);
     }
 
     function decreaseFontSize() {
         var fontSize = ns.util.getFontSize(html);
         ns.util.setFontSize(html, fontSize - 1);
+        adjustToFontSize(fontSize - 1);
     }
 
+    function adjustToFontSize(size) {
+        // cardOptions.style.width = addCardBtn.clientWidth - 1 + 'px';
+        cardOptions.style.top = addCardBtn.clientHeight + 'px';
+    }
 
     ns.commands = {
         addCard: addCard,
+        showCardList: showCardList,
         addMetadata: addMetadata,
         sendSC: sendSC,
         clearLog: clearLog,
