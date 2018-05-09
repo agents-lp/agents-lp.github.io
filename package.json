@@ -1,0 +1,16 @@
+{
+  "name": "agents-lp.github.io",
+  "version": "0.0.1",
+  "description": "github-pages service for private usage",
+  "main": "index.js",
+  "repository": "git@github.com:agents-lp/agents-lp.github.io.git",
+  "author": "<meir@rotstein.co.il>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
