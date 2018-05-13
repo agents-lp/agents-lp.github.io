@@ -1,5 +1,5 @@
 (function (w, d, ns) {
-
+    
     var sendBtn = d.getElementById('sendBtn');
     var addCardBtn = d.getElementById('addCardBtn');
     var addMetadataBtn = d.getElementById('addMetadataBtn');
@@ -19,14 +19,13 @@
     function render() {
         const cardList = [];
         for (card in ns.data.cards) {
-            cardList.push(`<div data-attr-name="${card}">${ns.data.cards[card].title}</div>`);
+            cardList.push('<div data-attr-name=' + card + '>' + ns.data.cards[card].title + '</div>');
         }
         cardOptions.innerHTML = cardList.join('');
-        cardOptions.onblur = () => {  cardOptions.style.visibility = 'hidden'; };
+        cardOptions.onblur = function() {  cardOptions.style.visibility = 'hidden'; };
     }
 
     function init() {
-
         bindCommand(sendBtn, 'sendSC');
         bindCommand(addCardBtn, 'showCardList');
         bindCommand(cardOptions, 'addCard');

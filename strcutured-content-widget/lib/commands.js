@@ -8,7 +8,6 @@
     var metadataInput = d.getElementById('metadataInput');
 
     function sendSC() {
-
         var cmdName = lpTag.agentSDK.cmdNames.writeSC;
         var data = {
             json: jsonInput.value,
