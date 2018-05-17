@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>structured content widget</title>
+    <script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
+    <link href="styles/styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div id="fontResize">
+    <button id="decreaseFontSizeBtn" title="decrease font size">-</button>
+    <button id="increaseFontSizeBtn" title="increase font size">+</button>
+</div>
+
+<h1>structured content</h1>
+
+<label for="jsonInput">
+    <span>json</span>
+    <button id="addCardBtn">Select Card &#x25BC;</button>
+    <div id="cardOptions" class="options" style="visibility: hidden;" tabindex="0">
+    </div>
+</label>
+<textarea id="jsonInput" placeholder="enter the structured content json object here"></textarea>
+<label for="quickRepliesInput">
+    <span>quickReplies</span>
+    <button id="addQuickRepliesBtn">Select Quick Replies&#x25BC;</button>
+    <div id="quickRepliesOptions" class="options" style="visibility: hidden;" tabindex="0">
+    </div>
+</label>
+<textarea id="quickRepliesInput" placeholder="enter the quick replies json object here"></textarea>
+<label for="metadataInput">
+    <span>metadata</span>
+    <button id="addMetadataBtn">add sample data</button>
+</label>
+<textarea id="metadataInput" placeholder="enter the structured content metadata array here"></textarea>
+
+<label for="outputLog">
+    <span>response</span>
+    <button id="clearLogBtn">clear</button>
+</label>
+<textarea id="outputLog" readonly></textarea>
+
+<button id="sendBtn">send</button>
+
+
+<script src="lib/data.js"></script>
+<script src="lib/util.js"></script>
+<script src="lib/commands.js"></script>
+<script src="app.js"></script>
+
+</body>
+
+</html>
