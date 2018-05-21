@@ -15,14 +15,18 @@
 
         <h1>quick replies</h1>
 
-        <label for="textInput">
-            <span>text</span>
-            <button id="addTextBtn">add sample text</button>
+        <label for="contentInput">
+            <input type="radio" id="text" name="selection" checked/><span>text</span>
+            <input type="radio" id="json" name="selection"/><span>json</span>
+            <button id="selectContentBtn">select content &#x25BC;</button>
+            <div id="contentOptions" class="options" style="visibility: hidden;" tabindex="0"></div>
         </label>
-        <input id="textInput" placeholder="send a text message along with the quick replies" />
+        <textarea id="contentInput" placeholder="send plain text or structured content json"></textarea>
+
         <label for="quickRepliesInput">
             <span>quick replies</span>
-            <button id="addQuickRepliesBtn">add sample quick replies</button>
+            <button id="selectQuickRepliesBtn">select QR &#x25BC;</button>
+            <div id="quickRepliesOptions" class="options" style="visibility: hidden;" tabindex="0"></div>
         </label>
         <textarea id="quickRepliesInput" placeholder="enter a quick replies schema instance here"></textarea>
 

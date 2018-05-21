@@ -48,11 +48,19 @@ a {
 label {
     display: block;
     margin: 1.2em 0 .4em;
+    position: relative;
+}
+label input {
+    float: left;
+    width: unset;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 label span {
     float: left;
     line-height: 2.4;
     font-weight: 300;
+    margin-right: 10px;
 }
 label button {
     float: right;
@@ -107,12 +115,12 @@ button:hover {
 
 /* custom */
 
-#textInput {
-    flex: 0 1 10%;
+#contentInput {
+    flex: 0 1 40%;
 }
 
 #quickRepliesInput {
-    flex: 0 1 70%;
+    flex: 0 1 40%;
 }
 
 #outputLog {
@@ -143,4 +151,27 @@ button:hover {
     font-size: 14px;
     font-weight: bold;
     border-radius: 50%;
+}
+
+.options {
+    position: absolute;
+    right: 0px;
+    background: white;
+    top: 33px;
+    /* width: 118px;    */
+    border: solid 2px #DDD;
+    z-index: 9;
+    outline: none;
+}
+
+.options > div {
+    padding: 2px 4px 2px 4px;
+}
+
+.options > div:nth-child(2n+2) {
+    background: #f0f0f0;
+}
+
+.options > div:hover {
+    background: #DDD;
 }
