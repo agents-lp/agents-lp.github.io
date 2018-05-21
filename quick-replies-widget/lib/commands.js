@@ -17,9 +17,6 @@
         var cmdName = contentType === 'text' ? lpTag.agentSDK.cmdNames.write : lpTag.agentSDK.cmdNames.writeSC;
         var data = {
             quickReplies: quickRepliesInput.value,
-            metadata: {
-                title: 'quick replies example'
-            }
         };
         data[contentType] = contentInput.value;
 
