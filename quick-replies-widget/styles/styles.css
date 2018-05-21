@@ -51,13 +51,10 @@ label {
     position: relative;
 }
 label input {
-    float: left;
     width: unset;
-    margin-top: 10px;
     margin-right: 10px;
 }
 label span {
-    float: left;
     line-height: 2.4;
     font-weight: 300;
     margin-right: 10px;
