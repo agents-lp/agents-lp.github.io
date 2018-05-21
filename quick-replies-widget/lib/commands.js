@@ -14,7 +14,7 @@
         }
 
         var contentType = contentTypeJson && contentTypeJson.checked ? 'json' : 'text';
-        var cmdName = lpTag.agentSDK.cmdNames.write;
+        var cmdName = contentType === 'text' ? lpTag.agentSDK.cmdNames.write : lpTag.agentSDK.cmdNames.writeSC;
         var data = {
             quickReplies: quickRepliesInput.value,
             metadata: {
