@@ -93,7 +93,7 @@
         },
         all_action: {
             title: "All Actions",
-            content: {"type":"quickReplies","itemsPerRow":8,"replies":[{"type":"button","tooltip":"yes i do","title":"navigate to Haifa","click":{"actions":[{"type":"navigate","la":32.7940463,"lo":34.78176759999997}]}},{"type":"button","tooltip":"no way","title":"link to ynet","click":{"actions":[{"type":"link","uri":"https://www.google.com/"}]}},{"type":"button","tooltip":"no way","title":"publishText","click":{"actions":[{"type":"publishText","text":"publishText was clicked"}]}}]}
+            content: {"type":"quickReplies","itemsPerRow":8,"replies":[{"type":"button","tooltip":"yes i do","title":"navigate to Haifa","click":{"actions":[{"type":"navigate","la":32.7940463,"lo":34.78176759999997}]}},{"type":"button","tooltip":"no way","title":"link to google","click":{"actions":[{"type":"link","uri":"https://www.google.com/"}]}},{"type":"button","tooltip":"no way","title":"publishText","click":{"actions":[{"type":"publishText","text":"publishText was clicked"}]}}]}
         }
     };
 
