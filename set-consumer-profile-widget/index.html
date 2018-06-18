@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <title>LivePerson set consumer profile widget</title>
+    <script src="https://qtvr-wap11.dev.lprnd.net/webagent/client-SDK.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="./script.js"></script>
+
+    <style>
+        input.break {
+            word-wrap: break-all;
+            word-break: break-all;
+            height: 80px;
+        }
+
+        input {
+            padding: 5px;
+        }
+
+        h1 {
+            margin: 15px 0;
+        }
+
+        tbody>tr>td:nth-child(1) {
+            width: 50%
+        }
+
+        tbody>tr>td:nth-child(2) {
+            width: 30%
+        }
+
+        tbody>tr>td:nth-child(3) {
+            width: 20%;
+        }
+
+        td:first-child {
+            padding: 5px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .update-btn {
+            outline: none;
+            width: 100px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        thead>tr {
+            background-color: aliceblue;
+        }
+
+        thead>tr>td {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body style="word-break: break-word">
+    <div>
+        <span>User id:</span>
+        <span id="userId" class="consumerId" type='text'></span>
+    </div>
+    <div>
+        <span>User name: </span>
+        <span id="userName" class="consumerName" type='text'></span>
+    </div>
+    <h1>set consumer profile</h1>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <td> Field name</td>
+                <td> Input </td>
+                <td style="font-size: 10px;"> Include if empty </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="first-name">firstName:</label>
+                </td>
+                <td>
+                    <input id="first-name" detail="firstName" class="details" type='text' placeholder="First name" value="Yossi">
+                </td>
+                <td>
+                    <input class="first-name" detail="first-name" type="checkbox" onclick="onChecked(this, 'first-name')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="last-name">lastName:</label>
+                </td>
+                <td>
+                    <input id="last-name" detail="lastName" class="details" vtype='text' placeholder="Last name" value="Sassi">
+                </td>
+                <td>
+                    <input class="last-name" type="checkbox" onclick="onChecked(this, 'last-name')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="avatar-url">avatarUrl:</label>
+                </td>
+                <td>
+                    <input id="avatar-url" detail="avatarUrl" class="details" type='text' placeholder="Avatar URL" value="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&h=350">
+                </td>
+                <td>
+                    <input class="avatar-url" type="checkbox" onclick="onChecked(this, 'avatar-url')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">email:</label>
+                </td>
+                <td>
+                    <input id="email" detail="email" class="details" type='text' placeholder="Email" value="a@a.com">
+                </td>
+                <td>
+                    <input class="email" type="checkbox" onclick="onChecked(this, 'email')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="phone">phone:</label>
+                </td>
+                <td>
+                    <input id="phone" detail="phone" class="details" type='text' placeholder="Phone" value="+972544123456">
+                </td>
+                <td>
+                    <input class="phone" type="checkbox" onclick="onChecked(this, 'phone')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="backgndImgUri">backgndImgUri:</label>
+                </td>
+                <td>
+                    <input id="backgndImgUri" detail="backgndImgUri" class="details" type='text' placeholder="backgndImgUri" value="abcdefg">
+                </td>
+                <td>
+                    <input class="backgndImgUri" type="checkbox" onclick="onChecked(this, 'backgndImgUri')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="description">description:</label>
+                </td>
+                <td>
+                    <input id="description" detail="description" class="details" type='text' placeholder="description" value="description">
+                </td>
+                <td>
+                    <input class="description" type="checkbox" onclick="onChecked(this, 'description')">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button onclick="onUpdateClicked()" title="Update" class="update-btn">Update
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                    <button onclick="onClearClicked()" title="Clear" class="clear-btn">Clear
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="result"></div>
+    <div class="logger">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+    </div>
+</body>
+
+</html>
