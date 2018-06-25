@@ -1,10 +1,8 @@
-var myTimer;
-var searchKey = '';
-var bindingObject = {};
-
 window.lpTag = window.lpTag || {};
 lpTag.taglets = lpTag.taglets || {};
 var SDK = lpTag.agentSDK || {};
+var currImage = '';
+var checkAll = true;
 
 $(function () {
     SDK.init({
@@ -13,22 +11,20 @@ $(function () {
         visitorBlurredCallback: getLogFunction('INFO', 'Visitor Blurred received!')
     });
 
-    SDK.get('visitorInfo.visitorId', getIdSuccess, getIdError);
-    function getIdSuccess(data) {
-        $("#userId").text(data);
+    SDK.get('messagingInfo.consumerProfile', getProfileSuccess, getProfileError);
+    function getProfileSuccess(data) {
+        $("#userDetails").val(JSON.stringify(data, null, 2));
         getLogFunction('INFO', 'Get success!')(data);
+        $('#first-name').val(data.firstName);
+        $('#last-name').val(data.lastName);
+        $('#avatar-url').val(data.avatarImage);
+        // $('#email').val(data.email); //not available in SDK
+        // $('#phone').val(data.phone); //not available in SDK
+        $('#backgndImgUri').val(data.backgroundImage);
+        $('#description').val(data.description);
     }
-    function getIdError(err) {
-        $("#userId").val("An error occurd trying to get the consumer's id");
-        getLogFunction('ERROR', 'Error in get!')(err);
-    }
-    SDK.get('visitorInfo.visitorName', getNameSuccess, getNameError);
-    function getNameSuccess(data) {
-        $("#userName").text(data);
-        getLogFunction('INFO', 'Get success!')(data);
-    }
-    function getNameError(err) {
-        $("#userName").val("An error occurd trying to get the consumer's name");
+    function getProfileError(err) {
+        $("#userDetails").val("An error occurd trying to get the consumer's name");
         getLogFunction('ERROR', 'Error in get!')(err);
     }
 });
@@ -70,10 +66,14 @@ function onUpdateClicked() {
     function onSuccess() {
         $("#result").text('success').addClass("success").removeClass('error');
         getLogFunction('INFO', 'setConsumerProfile success!')();
+        $('.update-button').html('Updated!');
+        setTimeout(function () {
+            $('.update-button').html('Update <i class="fas fa-arrow-down"></i>');
+        }, 1000);
     }
 }
 
-function onClearClicked(params) {
+function onClearClicked() {
     $("input").each((index, listItem) => {
         var $item = $(listItem);
         if (!$item.hasClass('ignore')) {
@@ -86,3 +86,23 @@ function onChecked(checkbox, targetName) {
     $("#" + targetName).toggleClass("include-empty-string", null, checkbox.checked)
 }
 
+function onAvatarButtonClicked() {
+    $('.gallery').toggleClass('hide');
+}
+function setImageInput(target, input) {
+    if (currImage) {
+        $('.' + currImage).removeClass('selected');
+    }
+    currImage = target;
+    $('.' + currImage).addClass('selected');
+    $('#avatar-url').val(input);
+}
+
+function onBulkCheckClicked() {
+    $("input[type='checkbox']").each((index, listItem) => {
+        $(listItem).prop('checked', checkAll);
+    });
+    checkAll = !checkAll;
+    var innerText = checkAll ? 'Check All <i class="fas fa-check-square"></i>' : 'Uncheck All <i class="far fa-square"></i>';
+    $('.bulk-check-button').html(innerText);
+}
