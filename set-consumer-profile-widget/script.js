@@ -24,7 +24,7 @@ $(function () {
         $('#description').val(data.description);
     }
     function getProfileError(err) {
-        $("#userDetails").val("An error occurd trying to get the consumer's name");
+        $("#userDetails").val("An error occurd trying to get the consumer's details");
         getLogFunction('ERROR', 'Error in get!')(err);
     }
 });
@@ -32,9 +32,6 @@ $(function () {
 
 function getLogFunction(type, message) {
     return function (data) {
-        if (typeof data === 'object' && (data.message || data.error)) {
-            data = data.message || data.error;
-        }
         logger(type, message + ' The ' + type + ' data: ' + data);
     };
 }
@@ -71,6 +68,17 @@ function onUpdateClicked() {
             $('.update-button').html('Update <i class="fas fa-arrow-down"></i>');
         }, 1000);
     }
+
+    $("#userDetails").val('');
+    setTimeout(() => {
+        SDK.get('messagingInfo.consumerProfile', getProfileSuccess, getProfileError);
+        function getProfileSuccess(data) {
+            $("#userDetails").val(JSON.stringify(data, null, 2));
+        }
+        function getProfileError() {
+            $("#userDetails").val("An error occurd trying to get the consumer's details");
+        }
+    }, 500);
 }
 
 function onClearClicked() {
