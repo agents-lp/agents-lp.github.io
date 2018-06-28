@@ -46,7 +46,7 @@ function logger(type, text) {
 
 function onUpdateClicked() {
     var reqObj = {};
-    $("input.details").each((index, listItem) => {
+    $("input.details").each(function (index, listItem) {
         var $item = $(listItem);
         if (!$item.hasClass('ignore') &&
             ($item.val() || $item.hasClass('include-empty-string'))) {
@@ -70,7 +70,7 @@ function onUpdateClicked() {
     }
 
     $("#userDetails").val('');
-    setTimeout(() => {
+    setTimeout(function () {
         SDK.get('messagingInfo.consumerProfile', getProfileSuccess, getProfileError);
         function getProfileSuccess(data) {
             $("#userDetails").val(JSON.stringify(data, null, 2));
@@ -82,7 +82,7 @@ function onUpdateClicked() {
 }
 
 function onClearClicked() {
-    $("input").each((index, listItem) => {
+    $("input").each(function (index, listItem) {
         var $item = $(listItem);
         if (!$item.hasClass('ignore')) {
             $(listItem).val('');
@@ -107,7 +107,7 @@ function setImageInput(target, input) {
 }
 
 function onBulkCheckClicked() {
-    $("input[type='checkbox']").each((index, listItem) => {
+    $("input[type='checkbox']").each(function (index, listItem) {
         $(listItem).prop('checked', checkAll);
     });
     checkAll = !checkAll;
