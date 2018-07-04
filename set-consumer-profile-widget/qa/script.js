@@ -57,7 +57,7 @@ function onUpdateClicked() {
     SDK.setConsumerProfile(reqObj, onSuccess, onError);
 
     function onError(err) {
-        $("#result").text(err).addClass("error").removeClass('success');
+        $("#result").text(err && (err.error || err.message) || err).addClass("error").removeClass('success');
         getLogFunction('ERROR', 'Error in setConsumerProfile!')(err);
     }
     function onSuccess() {
