@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+    <title>LivePerson set consumer profile widget</title>
+    <script src="https://lpcdn.lpsnmedia.net/webagent/client-SDK.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="./script.js"></script>
+
+    <style>
+        input.break {
+            word-wrap: break-all;
+            word-break: break-all;
+            height: 80px;
+        }
+
+        input {
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0 0 15px 0;
+        }
+
+        tbody>tr>td:nth-child(1),
+        thead>tr>td:nth-child(1) {
+            width: 30%;
+            font-size: 12px;
+        }
+
+        tbody>tr>td:nth-child(2),
+        thead>tr>td:nth-child(2) {
+            width: 60%
+        }
+
+        tbody>tr>td:nth-child(3),
+        thead>tr>td:nth-child(3) {
+            width: 10%;
+        }
+
+        td:first-child {
+            padding: 5px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        table {
+            border-collapse: collapse;
+            /* table-layout:fixed; */
+        }
+
+        thead>tr {
+            background-color: navajowhite;
+        }
+
+        thead>tr>td {
+            padding: 10px;
+        }
+
+        .logger>* {
+            width: 100%;
+            resize: vertical;
+        }
+
+        #userDetails {
+            width: 100%;
+            resize: vertical;
+        }
+
+        .image-gallery {
+            width: 18%;
+            height: 50px;
+            border-radius: 5px;
+            border: 2px solid transparent;
+            box-sizing: border-box;
+            opacity: 0.6;
+        }
+
+        .image-gallery.selected {
+            border: 2px solid orange;
+            opacity: 1;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .avatar-button {
+            padding: 0 1px;
+            border-radius: 1px;
+            outline: none;
+        }
+
+        .gallery {
+            text-align: center;
+            background-color: #eee
+        }
+
+        .action-button {
+            padding: 5px;
+            border-radius: 3px;
+            outline: none;
+            font-size: 10px;
+        }
+
+        .update-button {
+            background-color: rgba(143, 211, 116, 0.781);
+            width: 35%;
+        }
+
+        .clear-button {
+            background-color: rgba(241, 192, 146, 0.781);
+            width: 25%;
+        }
+
+        .bulk-check-button {
+            background-color: rgba(196, 240, 248, 0.781);
+            width: 35%;
+        }
+
+        #result {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body style="word-break: break-word">
+    <h1>set consumer profile</h1>
+    <div>
+        <div>SDK User details: </div>
+        <textarea id="userDetails" type='text'></textarea>
+    </div>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <td> Field name</td>
+                <td> Input </td>
+                <td style="font-size: 10px;">
+                    <i class="fas fa-plus"></i>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="first-name">firstName:</label>
+                </td>
+                <td>
+                    <input id="first-name" detail="firstName" class="details" type='text' placeholder="First name">
+                </td>
+                <td>
+                    <input class="first-name" detail="first-name" type="checkbox" title="include if empty" onclick="onChecked(this, 'first-name')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="last-name">lastName:</label>
+                </td>
+                <td>
+                    <input id="last-name" detail="lastName" class="details" vtype='text' placeholder="Last name">
+                </td>
+                <td>
+                    <input class="last-name" type="checkbox" title="include if empty" onclick="onChecked(this, 'last-name')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button for="avatar-url" class="avatar-button" onclick="onAvatarButtonClicked()">avatarUrl:</button>
+                </td>
+                <td>
+                    <input id="avatar-url" detail="avatarUrl" class="details" type='text' placeholder="Avatar URL">
+                </td>
+                <td>
+                    <input class="avatar-url" type="checkbox" title="include if empty" onclick="onChecked(this, 'avatar-url')">
+                </td>
+            </tr>
+            <tr class="gallery hide">
+                <td colspan="3">
+                    <img src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&h=350" alt="Cat"
+                        class="image-gallery cat" onclick="setImageInput('cat', 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&h=350')">
+                    <img src="https://www.nationalgeographic.com/content/dam/animals/thumbs/rights-exempt/mammals/d/domestic-dog_thumb.jpg" alt="Dog"
+                        class="image-gallery dog" onclick="setImageInput('dog', 'https://www.nationalgeographic.com/content/dam/animals/thumbs/rights-exempt/mammals/d/domestic-dog_thumb.jpg')">
+                    <img src="https://img.washingtonpost.com/wp-apps/imrs.php?src=https://img.washingtonpost.com/rf/image_960w/2010-2019/WashingtonPost/2015/10/08/Production/Health/Images/03902456-UZVE.jpg&w=480"
+                        alt="Elephant" class="image-gallery elephant" onclick="setImageInput('elephant', 'https://img.washingtonpost.com/wp-apps/imrs.php?src=https://img.washingtonpost.com/rf/image_960w/2010-2019/WashingtonPost/2015/10/08/Production/Health/Images/03902456-UZVE.jpg&w=480')">
+                    <img src="https://imgc.allpostersimages.com/img/print/posters/batman-logo_a-G-8646921-0.jpg" alt="Batman" class="image-gallery batman"
+                        onclick="setImageInput('batman', 'https://imgc.allpostersimages.com/img/print/posters/batman-logo_a-G-8646921-0.jpg')">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/61pUzLhav%2BL._UX522_.jpg" alt="Pickle" class="image-gallery pickle"
+                        onclick="setImageInput('pickle', 'https://images-na.ssl-images-amazon.com/images/I/61pUzLhav%2BL._UX522_.jpg')">
+                    <img src="https://rlv.zcache.com/spider_man_spider_logo_classic_round_sticker-r2b5d46da0d064768a6ceb1e45113f0ae_v9wth_8byvr_307.jpg"
+                        alt="Spiderman" class="image-gallery spiderman" onclick="setImageInput('spiderman', 'https://rlv.zcache.com/spider_man_spider_logo_classic_round_sticker-r2b5d46da0d064768a6ceb1e45113f0ae_v9wth_8byvr_307.jpg')">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe15am-MttQgsI5M7hE1kCfWnvU-zfsgVxLbugDmLPuDDoN1yk" alt="Minion"
+                        class="image-gallery minion" onclick="setImageInput('minion', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe15am-MttQgsI5M7hE1kCfWnvU-zfsgVxLbugDmLPuDDoN1yk')">
+                    <img src="https://avatarfiles.alphacoders.com/547/54795.jpg" alt="Fry" class="image-gallery fry" onclick="setImageInput('fry', 'https://avatarfiles.alphacoders.com/547/54795.jpg')">
+                    <img src="https://vignette.wikia.nocookie.net/renandstimpy/images/7/76/220px-Stimpy.jpg/revision/latest?cb=20130430000511"
+                        alt="Stimpy" class="image-gallery stimpy" onclick="setImageInput('stimpy', 'https://vignette.wikia.nocookie.net/renandstimpy/images/7/76/220px-Stimpy.jpg/revision/latest?cb=20130430000511')">
+                    <img src="https://images3.alphacoders.com/688/688278.png" alt="Patrick" class="image-gallery patrick" onclick="setImageInput('patrick','https://images3.alphacoders.com/688/688278.png')">
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="email">email:</label>
+                </td>
+                <td>
+                    <input id="email" detail="email" class="details" type='text' placeholder="Email" value="a@a.com">
+                </td>
+                <td>
+                    <input class="email" type="checkbox" title="include if empty" onclick="onChecked(this, 'email')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="phone">phone:</label>
+                </td>
+                <td>
+                    <input id="phone" detail="phone" class="details" type='text' placeholder="Phone" value="+972544123456">
+                </td>
+                <td>
+                    <input class="phone" type="checkbox" title="include if empty" onclick="onChecked(this, 'phone')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="backgndImgUri">backgndImgUri:</label>
+                </td>
+                <td>
+                    <input id="backgndImgUri" detail="backgndImgUri" class="details" type='text' placeholder="backgndImgUri">
+                </td>
+                <td>
+                    <input class="backgndImgUri" type="checkbox" title="include if empty" onclick="onChecked(this, 'backgndImgUri')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="description">description:</label>
+                </td>
+                <td>
+                    <input id="description" detail="description" class="details" type='text' placeholder="description">
+                </td>
+                <td>
+                    <input class="description" type="checkbox" title="include if empty" onclick="onChecked(this, 'description')">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button class="action-button update-button" onclick="onUpdateClicked()" title="Update">Update
+                        <i class="fas fa-arrow-down"></i>
+                    </button>
+                    <button class="action-button clear-button" onclick="onClearClicked()" title="Clear">Clear
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="action-button bulk-check-button" onclick="onBulkCheckClicked(event)">Check All
+                        <i class="fas fa-check-square"></i>
+                        </i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="result"></div>
+    <div class="logger">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+    </div>
+</body>
+
+</html>
