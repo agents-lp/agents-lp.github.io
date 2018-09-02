@@ -18,10 +18,9 @@ $(function () {
         $('#first-name').val(data.firstName);
         $('#last-name').val(data.lastName);
         $('#avatar-url').val(data.avatarImage);
-        // $('#email').val(data.email); //not available in SDK
-        // $('#phone').val(data.phone); //not available in SDK
+        $('#email').val(data.mail); 
+        $('#phone').val(data.phone);
         $('#backgndImgUri').val(data.backgroundImage);
-        $('#description').val(data.description);
     }
     function getProfileError(err) {
         $("#userDetails").val("An error occurd trying to get the consumer's details");
