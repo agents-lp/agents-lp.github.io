@@ -21,14 +21,22 @@
         });
     }
 
-    function showCardList() {
-        cardOptions.style.visibility = 'visible';
-        cardOptions.focus();
+    function toggleCardList() {
+        if (cardOptions.style.visibility === 'visible') {
+            hideCardList();
+        } else {
+            cardOptions.style.visibility = 'visible';
+        }
+    }
+
+    function hideCardList() {
+        cardOptions.style.visibility = 'hidden';
     }
 
     function addCard(e) {
         const cardKey = e.target.getAttribute('data-attr-name');
         jsonInput.value = ns.util.prettyPrint(ns.data.cards[cardKey].content);
+        hideCardList();
     }
 
     function addMetadata() {
@@ -58,7 +66,7 @@
 
     ns.commands = {
         addCard: addCard,
-        showCardList: showCardList,
+        toggleCardList: toggleCardList,
         addMetadata: addMetadata,
         sendSC: sendSC,
         clearLog: clearLog,

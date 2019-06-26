@@ -22,12 +22,11 @@
             cardList.push('<div data-attr-name=' + card + '>' + ns.data.cards[card].title + '</div>');
         }
         cardOptions.innerHTML = cardList.join('');
-        cardOptions.onblur = function() {  cardOptions.style.visibility = 'hidden'; };
     }
 
     function init() {
         bindCommand(sendBtn, 'sendSC');
-        bindCommand(addCardBtn, 'showCardList');
+        bindCommand(addCardBtn, 'toggleCardList');
         bindCommand(cardOptions, 'addCard');
         bindCommand(addMetadataBtn, 'addMetadata');
         bindCommand(clearLogBtn, 'clearLog');
