@@ -37,7 +37,6 @@
             contentList.push('<div data-attr-type=' + type + ' data-attr-name=' + c + '>' + ns.data[type][c].title + '</div>');
         }
         contentOptions.innerHTML = contentList.join('');
-        contentOptions.onblur = function() { contentOptions.style.visibility = 'hidden'; };
 
         // clear previous value
         contentInput.value = '';
@@ -49,12 +48,18 @@
             quickRepliesList.push('<div data-attr-name=' + qr + '>' + ns.data.quickReplies[qr].title + '</div>');
         }
         quickRepliesOptions.innerHTML = quickRepliesList.join('');
-        quickRepliesOptions.onblur = function() { quickRepliesOptions.style.visibility = 'hidden'; };
     }
 
-    function showContentOptionsList() {
-        contentOptions.style.visibility = 'visible';
-        contentOptions.focus();
+    function toggleContentOptionsList() {
+        if (contentOptions.style.visibility === 'visible') {
+            hideContentOptionsList();
+        } else {
+            contentOptions.style.visibility = 'visible';
+        }
+    }
+
+    function hideContentOptionsList() {
+        contentOptions.style.visibility = 'hidden';
     }
 
     function addContent(e) {
@@ -64,11 +69,19 @@
             var content = ns.data[contentType][contentKey].content;
             contentInput.value = contentType === 'json' ? ns.util.prettyPrint(content) : content;
         }
+        hideContentOptionsList();
     }
 
-    function showQuickRepliesList() {
-        quickRepliesOptions.style.visibility = 'visible';
-        quickRepliesOptions.focus();
+    function toggleQuickRepliesList() {
+        if (quickRepliesOptions.style.visibility === 'visible') {
+            hideQuickRepliesList();
+        } else {
+            quickRepliesOptions.style.visibility = 'visible';
+        }
+    }
+
+    function hideQuickRepliesList() {
+        quickRepliesOptions.style.visibility = 'hidden';
     }
 
     function addQuickReplies(e) {
@@ -76,6 +89,7 @@
         if (quickRepliesKey) {
             quickRepliesInput.value = ns.util.prettyPrint(ns.data.quickReplies[quickRepliesKey].content);
         }
+        hideQuickRepliesList();
     }
 
     function clearLog() {
@@ -97,9 +111,9 @@
         populateQuickReplies: populateQuickReplies,
         changeContentType: changeContentType,
         populateContentListByType: populateContentListByType,
-        showContentOptionsList: showContentOptionsList,
+        toggleContentOptionsList: toggleContentOptionsList,
         addContent: addContent,
-        showQuickRepliesList: showQuickRepliesList,
+        toggleQuickRepliesList: toggleQuickRepliesList,
         addQuickReplies: addQuickReplies,
         send: send,
         clearLog: clearLog,
