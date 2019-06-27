@@ -27,9 +27,9 @@
         bindCommand(sendBtn, 'send');
         bindCommand(textRadioChosen, 'changeContentType');
         bindCommand(jsonRadioChosen, 'changeContentType');
-        bindCommand(selectContentBtn, 'showContentOptionsList');
+        bindCommand(selectContentBtn, 'toggleContentOptionsList');
         bindCommand(contentOptions, 'addContent');
-        bindCommand(selectQuickRepliesBtn, 'showQuickRepliesList');
+        bindCommand(selectQuickRepliesBtn, 'toggleQuickRepliesList');
         bindCommand(quickRepliesOptions, 'addQuickReplies');
         bindCommand(clearLogBtn, 'clearLog');
         bindCommand(increaseFontSizeBtn, 'increaseFontSize');
