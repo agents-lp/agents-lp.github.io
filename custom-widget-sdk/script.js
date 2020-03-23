@@ -54,6 +54,20 @@ function onGetClicked() {
     }
 }
 
+function onChangeFocusedConversationClicked() {
+    const conversationId = $('#focusedConversationId').val();
+    if (conversationId) {
+        $('.result-line').text('Changing focused conversation: ' + conversationId);
+        SDK.changeFocusedConversation(
+          { conversationId },
+          getLogFunction('INFO', name + ' Succeed changing focused conversation!'),
+          getLogFunction('ERROR', 'Error in changing focused conversation!')
+        );
+    } else {
+        $('.result-line').text('Missing conversation ID');
+    }
+}
+
 function onBindClicked() {
     var bindKey = getKeys();
     if (bindKey) {
