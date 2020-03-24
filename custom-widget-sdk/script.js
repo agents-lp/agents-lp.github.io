@@ -188,6 +188,9 @@ function getSubCategory() {
         case 'splitSession':
             $sdkSub.append(getOptionsString(['', 'customVariables']));
             break;
+        case 'focusedConversation':
+            $sdkSub.append(getOptionsString(['', 'conversationId', 'consumerId', 'assignedAgentId']));
+            break;
         default:
             break;
     }

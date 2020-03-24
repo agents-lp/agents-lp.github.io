@@ -199,11 +199,11 @@
         <table style="width: 100%;">
             <tr>
                 <td colspan="2">Change focused conversation:</td>
-                <td>
-                    <input id="focusedConversationId" type='text' style="width:100%" placeholder="Enter conversation ID">
-                </td>
-                <td>
-                    <button style="width: 70px;" class="get-button left-button" onclick="onChangeFocusedConversationClicked()" title="Write">GO!</button>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input id="focusedConversationId" class="write-input input-left" type="text" style="width: 75%; padding:5px;" placeholder="Enter conversation ID">
+                    <button style="min-width: 50px; width: 15%;" class="right-button left-button" onclick="onChangeFocusedConversationClicked()" title="Write">GO!</button>
                 </td>
             </tr>
             <tr>
@@ -230,6 +230,7 @@
                         <option value="authenticatedData">authenticatedData</option>
                         <option value="customVariables">customVariables</option>
                         <option value="splitSession">splitSession</option>
+                        <option value="focusedConversation">focusedConversation</option>
                     </select>
                 </td>
             </tr>
