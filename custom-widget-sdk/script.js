@@ -54,6 +54,20 @@ function onGetClicked() {
     }
 }
 
+function onChangeFocusedConversationClicked() {
+    const conversationId = $('#focusedConversationId').val();
+    if (conversationId) {
+        $('.result-line').text('Changing focused conversation: ' + conversationId);
+        SDK.changeFocusedConversation(
+          { conversationId },
+          getLogFunction('INFO', name + ' Succeeded changing focused conversation!'),
+          getLogFunction('ERROR', 'Error in changing focused conversation!')
+        );
+    } else {
+        $('.result-line').text('Missing conversation ID');
+    }
+}
+
 function onBindClicked() {
     var bindKey = getKeys();
     if (bindKey) {
@@ -173,6 +187,9 @@ function getSubCategory() {
             break;
         case 'splitSession':
             $sdkSub.append(getOptionsString(['', 'customVariables']));
+            break;
+        case 'focusedConversation':
+            $sdkSub.append(getOptionsString(['', 'conversationId', 'consumerId', 'assignedAgentId']));
             break;
         default:
             break;
