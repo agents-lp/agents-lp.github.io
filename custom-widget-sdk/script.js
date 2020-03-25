@@ -60,7 +60,7 @@ function onChangeFocusedConversationClicked() {
         $('.result-line').text('Changing focused conversation: ' + conversationId);
         SDK.changeFocusedConversation(
           { conversationId },
-          getLogFunction('INFO', name + ' Succeed changing focused conversation!'),
+          getLogFunction('INFO', name + ' Succeeded changing focused conversation!'),
           getLogFunction('ERROR', 'Error in changing focused conversation!')
         );
     } else {
