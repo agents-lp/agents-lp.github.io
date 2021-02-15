@@ -1588,6 +1588,45 @@
                 }]
             }
         },
+        qr_accessibility: {
+            title: "accessibility",
+            content: {
+                "type": "quickReplies",
+                "itemsPerRow": 8,
+                "accessibility": {
+                    "web": {
+                        "role": "region",
+                        "tabindex": "0",
+                        "aria-label": "Quick replies region"
+                    }
+                },
+                "replies": [{
+                    "type": "button",
+                    "tooltip": "yes i do",
+                    "title": "yes",
+                    "accessibility": {
+                        "web": {
+                            "role": "button",
+                            "aria-label": "Yes",
+                            "tabindex": "0"
+                        }
+                    },
+                    "click": { "actions": [{ "type": "publishText", "text": "yep" }] }
+                }, {
+                    "type": "button",
+                    "tooltip": "no way",
+                    "title": "no",
+                    "accessibility": {
+                        "web": {
+                            "role": "button",
+                            "aria-label": "No",
+                            "tabindex": "0",
+                        }
+                    },
+                    "click": { "actions": [{ "type": "publishText", "text": "nope" }] }
+                }]
+            }
+        },
         qr_8_8_8: {
             title: "8-8-8 buttons",
             content: {
