@@ -1589,7 +1589,7 @@
             }
         },
         qr_accessibility: {
-            title: "accessibility",
+            title: "2 buttons with accessibility attributes",
             content: {
                 "type": "quickReplies",
                 "itemsPerRow": 8,
