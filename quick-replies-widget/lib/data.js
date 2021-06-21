@@ -1903,8 +1903,8 @@
                         },
                         "style": {
                             "color": "#fff",
-                            "border-color": "lightpink",
-                            "background-color": "lightpink",
+                            "border-color": "#EB001F",
+                            "background-color": "#EB001F",
                             "bold": true
                         }
                     },
