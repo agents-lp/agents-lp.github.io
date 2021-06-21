@@ -1965,8 +1965,8 @@
                         },
                         "style": {
                             "color": "#fff",
-                            "border-color": "#d17813",
-                            "background-color": "#d17813",
+                            "border-color": "#9F5B0F",
+                            "background-color": "#9F5B0F",
                             "italic": true
                         }
                     }, {
