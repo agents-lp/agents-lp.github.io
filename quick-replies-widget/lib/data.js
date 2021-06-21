@@ -1903,8 +1903,8 @@
                         },
                         "style": {
                             "color": "#fff",
-                            "border-color": "lightpink",
-                            "background-color": "lightpink",
+                            "border-color": "#EB001F",
+                            "background-color": "#EB001F",
                             "bold": true
                         }
                     },
@@ -1919,8 +1919,8 @@
                         },
                         "style": {
                             "color": "#fff",
-                            "border-color": "gold",
-                            "background-color": "gold",
+                            "border-color": "#857100",
+                            "background-color": "#857100",
                             "border-radius": 0,
                             "bold": true
                         }
@@ -1942,8 +1942,8 @@
                         },
                         "style": {
                             "color": "#fff",
-                            "border-color": "skyblue",
-                            "background-color": "skyblue",
+                            "border-color": "#1B7BA1",
+                            "background-color": "#1B7BA1",
                             "bold": true
                         }
                     }, {
@@ -1965,8 +1965,8 @@
                         },
                         "style": {
                             "color": "#fff",
-                            "border-color": "#d17813",
-                            "background-color": "#d17813",
+                            "border-color": "#9F5B0F",
+                            "background-color": "#9F5B0F",
                             "italic": true
                         }
                     }, {
