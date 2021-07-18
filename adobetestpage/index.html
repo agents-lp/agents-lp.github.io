@@ -33,6 +33,15 @@
     <script src="//assets.adobedtm.com/773f70d6db8b/a1bb5148d9b3/launch-c35ef0111bcd-development.min.js" async></script>
     
     <script>
+    var digitalData = {
+"profile" : "abcd",
+        "page": {
+            "pageInfo" : {
+                "pageName": "Meir Home"
+                }
+            }
+    };
+        
     document.addEventListener("at-request-succeeded", function(e) { 
       console.log("Got tokens", e.detail.responseTokens);
     });
